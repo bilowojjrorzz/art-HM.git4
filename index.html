@@ -42,17 +42,11 @@ align-items: center;
 gap: 12px;
 }
 
-.logo-icon {
+.logo img {
 width: 55px;
 height: 55px;
-background: linear-gradient(145deg, #ff9800, #f57c00);
 border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 28px;
-font-weight: bold;
-color: white;
+object-fit: cover;
 }
 
 .logo h1 { font-size: 2rem; }
@@ -79,6 +73,21 @@ font-size: 1rem;
 .nav-links button:hover {
 background: #ff9800;
 transform: translateY(-2px);
+}
+
+/* أزرار اللغة */
+.lang-buttons {
+display: flex;
+gap: 0.5rem;
+margin-left: 0.5rem;
+}
+.lang-btn {
+background: rgba(0,0,0,0.5) !important;
+padding: 0.4rem 0.8rem !important;
+font-size: 0.8rem !important;
+}
+.lang-btn:hover {
+background: #ff9800 !important;
 }
 
 .admin-login-btn {
@@ -254,6 +263,7 @@ border: 1px solid #ccc;
 @media (max-width: 700px) {
 .hero-section { padding: 1rem; }
 .welcome-box h2 { font-size: 1.5rem; }
+.nav-links { justify-content: center; }
 }
 </style>
 </head>
@@ -270,76 +280,80 @@ style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 <button id="homeBtn">🏠 Home</button>
 <button id="productsNavBtn">👟 Our Products</button>
 <button id="contactNavBtn">📞 Contact</button>
-<!-- Admin button will appear only if secret key is present -->
+<div class="lang-buttons">
+<button class="lang-btn" onclick="setLanguage('en')">🇬🇧 EN</button>
+<button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 FR</button>
+<button class="lang-btn" onclick="setLanguage('ar')">🇸🇦 AR</button>
+</div>
 </div>
 </div>
 <div class="welcome-box">
-<h2>Welcome to HM STORE</h2>
-<p>⭐ Premium footwear for champions | Best quality & comfort ⭐</p>
-<p style="margin-top: 12px;">🔥 Discover the latest collection 🔥</p>
+<h2 id="welcomeTitle">Welcome to HM STORE</h2>
+<p id="welcomeSub">⭐ Premium footwear for champions | Best quality & comfort ⭐</p>
+<p id="welcomeDesc" style="margin-top: 12px;">🔥 Discover the latest collection 🔥</p>
 </div>
 </div>
 
 <!-- Admin Dashboard -->
 <div id="adminDashboard" class="admin-dashboard">
 <div class="admin-tabs">
-<button class="tab-btn active" data-tab="productsTab">➕ Manage Products</button>
-<button class="tab-btn" data-tab="ordersTab">📦 Orders</button>
-<button class="tab-btn" data-tab="adminsTab">👥 Admins</button>
+<button class="tab-btn active" data-tab="productsTab" id="tabProducts">➕ Manage Products</button>
+<button class="tab-btn" data-tab="ordersTab" id="tabOrders">📦 Orders</button>
+<button class="tab-btn" data-tab="adminsTab" id="tabAdmins">👥 Admins</button>
 </div>
 <div id="productsTab" class="tab-pane active">
-<h3>Add New Shoe</h3>
+<h3 id="addProductTitle">Add New Shoe</h3>
 <div class="form-row">
-<div class="form-group"><label>Model Name</label><input type="text" id="prodName" placeholder="e.g. HM Racer Pro"></div>
-<div class="form-group"><label>Price (DZD)</label><input type="number" id="prodPrice" placeholder="8500"></div>
-<div class="form-group"><label>Sizes (ex: 39,40,41)</label><input type="text" id="prodSizes" placeholder="39,40,41,42"></div>
-<div class="form-group"><label>Image URL</label><input type="text" id="prodImage" placeholder="https://..."></div>
-<div class="form-group"><label>Stock</label><select id="prodStock"><option value="in">✅ In Stock</option><option value="out">❌ Out of Stock</option></select></div>
+<div class="form-group"><label id="labelName">Model Name</label><input type="text" id="prodName" placeholder="e.g. HM Racer Pro"></div>
+<div class="form-group"><label id="labelPrice">Price (DZD)</label><input type="number" id="prodPrice" placeholder="8500"></div>
+<div class="form-group"><label id="labelSizes">Sizes (ex: 39,40,41)</label><input type="text" id="prodSizes" placeholder="39,40,41,42"></div>
+<div class="form-group"><label id="labelImage">Image URL</label><input type="text" id="prodImage" placeholder="https://..."></div>
+<div class="form-group"><label id="labelStock">Stock</label><select id="prodStock"><option value="in">✅ In Stock</option><option value="out">❌ Out of Stock</option></select></div>
 </div>
 <button id="addProductBtn">+ Add Product</button>
 <hr style="margin: 20px 0;">
-<h3>Existing Products</h3>
+<h3 id="existingTitle">Existing Products</h3>
 <div id="adminProductsList" style="max-height: 300px; overflow-y: auto;"></div>
 </div>
 <div id="ordersTab" class="tab-pane">
-<h3>Customer Orders</h3>
+<h3 id="ordersTitle">Customer Orders</h3>
 <div id="ordersList"></div>
 </div>
 <div id="adminsTab" class="tab-pane">
-<h3>Add New Admin</h3>
+<h3 id="addAdminTitle">Add New Admin</h3>
 <div class="form-row">
-<div class="form-group"><label>Admin Password</label><input type="text" id="newAdminPass" placeholder="new admin secret"></div>
+<div class="form-group"><label id="labelAdminPass">Admin Password</label><input type="text" id="newAdminPass" placeholder="new admin secret"></div>
 <div class="form-group"><label> </label><button id="addAdminBtn">+ Add Admin</button></div>
 </div>
-<h4>Current Admins</h4>
+<h4 id="currentAdminsTitle">Current Admins</h4>
 <div id="adminsList"></div>
 </div>
 </div>
 
 <div id="productsCustomerSection" class="products-section">
-<div class="section-title">👟 Our Collection</div>
+<div class="section-title" id="collectionTitle">👟 Our Collection</div>
 <div id="customerProductGrid" class="product-grid"></div>
 </div>
 
 <div id="contactPage" style="display: none;">
 <div class="contact-section">
-<h2>📞 Contact HM STORE</h2>
+<h2 id="contactTitle">📞 Contact HM STORE</h2>
 <div class="contact-grid">
 <div class="contact-card"><h3>📧 Email</h3><p>Daoudhamdani@gmail.com</p></div>
-<div class="contact-card"><h3>📱 Phone</h3><p>+213 5XX XX XX XX</p></div>
-<div class="contact-card"><h3>📍 Location</h3><p>Algiers, Algeria</p></div>
-<div class="contact-card"><h3>⏰ Hours</h3><p>24h</p></div>
+<div class="contact-card"><h3 id="contactPhone">📱 Phone</h3><p>+213 5XX XX XX XX</p></div>
+<div class="contact-card"><h3 id="contactLocation">📍 Location</h3><p>Algiers, Algeria</p></div>
+<div class="contact-card"><h3 id="contactHours">⏰ Hours</h3><p>24h</p></div>
 </div>
 </div>
 </div>
 
 <footer>
-<p>© 2025 HM STORE — Premium Footwear | Secure Shopping</p>
+<p id="footerText">© 2025 HM STORE — Premium Footwear | Secure Shopping</p>
 </footer>
 
 <div id="buyModal" class="modal">
 <div class="modal-content">
-<h3>🛒 Complete Order</h3>
+<h3 id="orderTitle">🛒 Complete Order</h3>
 <div id="modalProductInfo"></div>
 <input type="text" id="buyerFullName" placeholder="Full name">
 <input type="tel" id="buyerPhone" placeholder="Phone number">
@@ -351,7 +365,197 @@ style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 </div>
 
 <script>
-// السر السري - غير هذا الرقم كما تريد
+// ========== إعدادات اللغة ==========
+const translations = {
+en: {
+home: "🏠 Home",
+products: "👟 Our Products",
+contact: "📞 Contact",
+welcomeTitle: "Welcome to HM STORE",
+welcomeSub: "⭐ Premium footwear for champions | Best quality & comfort ⭐",
+welcomeDesc: "🔥 Discover the latest collection 🔥",
+tabProducts: "➕ Manage Products",
+tabOrders: "📦 Orders",
+tabAdmins: "👥 Admins",
+addProductTitle: "Add New Shoe",
+labelName: "Model Name",
+labelPrice: "Price (DZD)",
+labelSizes: "Sizes (ex: 39,40,41)",
+labelImage: "Image URL",
+labelStock: "Stock",
+addProductBtn: "+ Add Product",
+existingTitle: "Existing Products",
+ordersTitle: "Customer Orders",
+addAdminTitle: "Add New Admin",
+labelAdminPass: "Admin Password",
+currentAdminsTitle: "Current Admins",
+collectionTitle: "👟 Our Collection",
+contactTitle: "📞 Contact HM STORE",
+contactPhone: "📱 Phone",
+contactLocation: "📍 Location",
+contactHours: "⏰ Hours",
+footerText: "© 2025 HM STORE — Premium Footwear | Secure Shopping",
+orderTitle: "🛒 Complete Order",
+buyNow: "🛒 Buy Now",
+inStock: "✅ In Stock",
+outStock: "❌ Out of Stock",
+noProducts: "✨ No products yet. Admin will add them soon ✨",
+noOrders: "No orders yet.",
+noAdmins: "No admins yet.",
+fillFields: "Please fill all fields",
+orderPlaced: "✅ Order placed! We'll contact you soon.",
+enterName: "Enter product name",
+validPrice: "Valid price needed",
+productAdded: "Product added!",
+deleteConfirm: "Delete this shoe?",
+removeAdminConfirm: "Remove admin",
+alreadyExists: "Already exists",
+invalidPassword: "Invalid password",
+welcomeAdmin: "Welcome Admin!",
+loggedOut: "Logged out!"
+},
+fr: {
+home: "🏠 Accueil",
+products: "👟 Nos Produits",
+contact: "📞 Contact",
+welcomeTitle: "Bienvenue chez HM STORE",
+welcomeSub: "⭐ Chaussures premium pour champions | Meilleure qualité et confort ⭐",
+welcomeDesc: "🔥 Découvrez la dernière collection 🔥",
+tabProducts: "➕ Gérer les Produits",
+tabOrders: "📦 Commandes",
+tabAdmins: "👥 Admins",
+addProductTitle: "Ajouter une Chaussure",
+labelName: "Nom du Modèle",
+labelPrice: "Prix (DZD)",
+labelSizes: "Tailles (ex: 39,40,41)",
+labelImage: "URL de l'image",
+labelStock: "Stock",
+addProductBtn: "+ Ajouter",
+existingTitle: "Produits Existants",
+ordersTitle: "Commandes Clients",
+addAdminTitle: "Ajouter un Admin",
+labelAdminPass: "Mot de passe Admin",
+currentAdminsTitle: "Admins Actuels",
+collectionTitle: "👟 Notre Collection",
+contactTitle: "📞 Contact HM STORE",
+contactPhone: "📱 Téléphone",
+contactLocation: "📍 Adresse",
+contactHours: "⏰ Horaires",
+footerText: "© 2025 HM STORE — Chaussures Premium | Achat Sécurisé",
+orderTitle: "🛒 Finaliser la Commande",
+buyNow: "🛒 Acheter",
+inStock: "✅ En Stock",
+outStock: "❌ Rupture",
+noProducts: "✨ Aucun produit pour le moment. L'administrateur les ajoutera bientôt ✨",
+noOrders: "Aucune commande pour le moment.",
+noAdmins: "Aucun administrateur.",
+fillFields: "Veuillez remplir tous les champs",
+orderPlaced: "✅ Commande passée ! Nous vous contacterons bientôt.",
+enterName: "Entrez le nom du produit",
+validPrice: "Prix valide requis",
+productAdded: "Produit ajouté !",
+deleteConfirm: "Supprimer cette chaussure ?",
+removeAdminConfirm: "Supprimer l'administrateur",
+alreadyExists: "Existe déjà",
+invalidPassword: "Mot de passe invalide",
+welcomeAdmin: "Bienvenue Administrateur !",
+loggedOut: "Déconnecté !"
+},
+ar: {
+home: "🏠 الرئيسية",
+products: "👟 منتجاتنا",
+contact: "📞 اتصل بنا",
+welcomeTitle: "مرحباً بكم في HM STORE",
+welcomeSub: "⭐ أحذية فاخرة للأبطال | أفضل جودة وراحة ⭐",
+welcomeDesc: "🔥 اكتشف أحدث المجموعات 🔥",
+tabProducts: "➕ إدارة المنتجات",
+tabOrders: "📦 الطلبات",
+tabAdmins: "👥 المشرفون",
+addProductTitle: "إضافة حذاء جديد",
+labelName: "اسم الموديل",
+labelPrice: "السعر (دج)",
+labelSizes: "المقاسات (مثال: 39,40,41)",
+labelImage: "رابط الصورة",
+labelStock: "المخزون",
+addProductBtn: "+ إضافة منتج",
+existingTitle: "المنتجات الموجودة",
+ordersTitle: "طلبات العملاء",
+addAdminTitle: "إضافة مشرف جديد",
+labelAdminPass: "كلمة مرور المشرف",
+currentAdminsTitle: "المشرفون الحاليون",
+collectionTitle: "👟 مجموعتنا",
+contactTitle: "📞 اتصل بـ HM STORE",
+contactPhone: "📱 الهاتف",
+contactLocation: "📍 الموقع",
+contactHours: "⏰ ساعات العمل",
+footerText: "© 2025 HM STORE — أحذية فاخرة | تسوق آمن",
+orderTitle: "🛒 إتمام الطلب",
+buyNow: "🛒 شراء الآن",
+inStock: "✅ متوفر",
+outStock: "❌ نفدت الكمية",
+noProducts: "✨ لا توجد منتجات حالياً. سيتم إضافتها قريباً ✨",
+noOrders: "لا توجد طلبات حالياً.",
+noAdmins: "لا يوجد مشرفون.",
+fillFields: "الرجاء ملء جميع الحقول",
+orderPlaced: "✅ تم تقديم الطلب! سنتواصل معك قريباً.",
+enterName: "الرجاء إدخال اسم المنتج",
+validPrice: "الرجاء إدخال سعر صحيح",
+productAdded: "تم إضافة المنتج!",
+deleteConfirm: "هل تريد حذف هذا الحذاء؟",
+removeAdminConfirm: "حذف المشرف",
+alreadyExists: "كلمة المرور موجودة مسبقاً",
+invalidPassword: "كلمة مرور خاطئة",
+welcomeAdmin: "مرحباً بك في لوحة التحكم!",
+loggedOut: "تم تسجيل الخروج!"
+}
+};
+
+let currentLang = 'en';
+
+function setLanguage(lang) {
+currentLang = lang;
+const t = translations[lang];
+// تحديث النصوص في الصفحة
+document.getElementById('homeBtn').innerHTML = t.home;
+document.getElementById('productsNavBtn').innerHTML = t.products;
+document.getElementById('contactNavBtn').innerHTML = t.contact;
+document.getElementById('welcomeTitle').innerHTML = t.welcomeTitle;
+document.getElementById('welcomeSub').innerHTML = t.welcomeSub;
+document.getElementById('welcomeDesc').innerHTML = t.welcomeDesc;
+// تحديث لوحة التحكم
+if (document.getElementById('tabProducts')) document.getElementById('tabProducts').innerHTML = t.tabProducts;
+if (document.getElementById('tabOrders')) document.getElementById('tabOrders').innerHTML = t.tabOrders;
+if (document.getElementById('tabAdmins')) document.getElementById('tabAdmins').innerHTML = t.tabAdmins;
+if (document.getElementById('addProductTitle')) document.getElementById('addProductTitle').innerHTML = t.addProductTitle;
+if (document.getElementById('labelName')) document.getElementById('labelName').innerHTML = t.labelName;
+if (document.getElementById('labelPrice')) document.getElementById('labelPrice').innerHTML = t.labelPrice;
+if (document.getElementById('labelSizes')) document.getElementById('labelSizes').innerHTML = t.labelSizes;
+if (document.getElementById('labelImage')) document.getElementById('labelImage').innerHTML = t.labelImage;
+if (document.getElementById('labelStock')) document.getElementById('labelStock').innerHTML = t.labelStock;
+if (document.getElementById('addProductBtn')) document.getElementById('addProductBtn').innerHTML = t.addProductBtn;
+if (document.getElementById('existingTitle')) document.getElementById('existingTitle').innerHTML = t.existingTitle;
+if (document.getElementById('ordersTitle')) document.getElementById('ordersTitle').innerHTML = t.ordersTitle;
+if (document.getElementById('addAdminTitle')) document.getElementById('addAdminTitle').innerHTML = t.addAdminTitle;
+if (document.getElementById('labelAdminPass')) document.getElementById('labelAdminPass').innerHTML = t.labelAdminPass;
+if (document.getElementById('currentAdminsTitle')) document.getElementById('currentAdminsTitle').innerHTML = t.currentAdminsTitle;
+if (document.getElementById('collectionTitle')) document.getElementById('collectionTitle').innerHTML = t.collectionTitle;
+if (document.getElementById('contactTitle')) document.getElementById('contactTitle').innerHTML = t.contactTitle;
+if (document.getElementById('contactPhone')) document.getElementById('contactPhone').innerHTML = t.contactPhone;
+if (document.getElementById('contactLocation')) document.getElementById('contactLocation').innerHTML = t.contactLocation;
+if (document.getElementById('contactHours')) document.getElementById('contactHours').innerHTML = t.contactHours;
+if (document.getElementById('footerText')) document.getElementById('footerText').innerHTML = t.footerText;
+if (document.getElementById('orderTitle')) document.getElementById('orderTitle').innerHTML = t.orderTitle;
+// تغيير اتجاه الصفحة للعربية
+if (lang === 'ar') {
+document.body.style.direction = 'rtl';
+document.querySelector('.navbar').style.flexDirection = 'row-reverse';
+} else {
+document.body.style.direction = 'ltr';
+document.querySelector('.navbar').style.flexDirection = 'row';
+}
+}
+
+// ========== باقي الكود الأصلي ==========
 const SECRET_KEY = "HMADMIN2025";
 
 let products = [];
@@ -364,14 +568,12 @@ function saveProducts() { localStorage.setItem('hm_products', JSON.stringify(pro
 function saveOrders() { localStorage.setItem('hm_orders', JSON.stringify(orders)); }
 function saveAdmins() { localStorage.setItem('hm_admins', JSON.stringify(admins)); }
 
-// التحقق من وجود الرقم السري في الرابط
 function checkSecretAndShowAdminButton() {
 const urlParams = new URLSearchParams(window.location.search);
 const secret = urlParams.get('secret');
 const navLinks = document.getElementById('navLinks');
 
 if (secret === SECRET_KEY) {
-// إضافة زر الأدمن
 const adminBtn = document.createElement('button');
 adminBtn.id = 'adminLoginBtn';
 adminBtn.className = 'admin-login-btn';
@@ -382,15 +584,15 @@ navLinks.appendChild(adminBtn);
 }
 
 function showAdminLogin() {
-let pwd = prompt("🔐 Enter admin password:");
+let pwd = prompt(translations[currentLang].invalidPassword === "Invalid password" ? "🔐 Enter admin password:" : (currentLang === 'ar' ? "🔐 أدخل كلمة مرور المشرف:" : "🔐 Entrez le mot de passe admin:"));
 if(pwd && admins.includes(pwd)) {
 currentAdmin = pwd;
 document.getElementById('adminDashboard').classList.add('show');
 renderAdminProducts();
 renderOrdersList();
 renderAdminsList();
-alert("Welcome Admin! You can now manage products, orders and other admins.");
-} else if(pwd) alert("Invalid password.");
+alert(translations[currentLang].welcomeAdmin);
+} else if(pwd) alert(translations[currentLang].invalidPassword);
 }
 
 function logoutAdmin() {
@@ -408,7 +610,7 @@ if(storedOrders) orders = JSON.parse(storedOrders);
 
 let storedAdmins = localStorage.getItem('hm_admins');
 if(storedAdmins) admins = JSON.parse(storedAdmins);
-if(!admins.includes("hmMaster2025")) admins.push("hmMaster2025");
+if(!admins.includes("KAKA09")) admins.push("KAKA09");
 saveAdmins();
 
 renderCustomerProducts();
@@ -418,10 +620,10 @@ if(currentAdmin) { renderAdminProducts(); renderOrdersList(); renderAdminsList()
 function renderCustomerProducts() {
 let container = document.getElementById('customerProductGrid');
 if(!container) return;
-if(products.length === 0) { container.innerHTML = '<div class="empty-message">✨ No products yet. Admin will add them soon ✨</div>'; return; }
+if(products.length === 0) { container.innerHTML = `<div class="empty-message">${translations[currentLang].noProducts}</div>`; return; }
 container.innerHTML = products.map(p => {
 let sizesHtml = p.sizesArray.map(s => `<span class="size-tag">${s}</span>`).join('');
-let stockLabel = p.stockStatus === 'in' ? '✅ In Stock' : '❌ Out of Stock';
+let stockLabel = p.stockStatus === 'in' ? translations[currentLang].inStock : translations[currentLang].outStock;
 let stockClass = p.stockStatus === 'in' ? 'in-stock' : 'out-stock';
 let disabledAttr = p.stockStatus !== 'in' ? 'disabled' : '';
 let imgHtml = p.imageUrl ? `<img src="${p.imageUrl}" onerror="this.src='https://via.placeholder.com/300?text=HM+Shoe'">` : '<div style="font-size:40px;">👟</div>';
@@ -433,7 +635,7 @@ return `
 <div class="product-price">${Number(p.price).toLocaleString()} DZD</div>
 <div class="sizes-badge">${sizesHtml}</div>
 <div class="stock-status ${stockClass}">${stockLabel}</div>
-<button class="buy-btn" data-id="${p.id}" ${disabledAttr}>🛒 Buy Now</button>
+<button class="buy-btn" data-id="${p.id}" ${disabledAttr}>${translations[currentLang].buyNow}</button>
 </div>
 </div>
 `;
@@ -444,7 +646,7 @@ btn.addEventListener('click', (e) => {
 let id = parseInt(btn.getAttribute('data-id'));
 let product = products.find(p => p.id === id);
 if(product && product.stockStatus === 'in') openBuyModal(product);
-else alert("Sorry, this item is out of stock.");
+else alert(translations[currentLang].outStock);
 });
 });
 }
@@ -466,7 +668,7 @@ let name = document.getElementById('buyerFullName').value.trim();
 let phone = document.getElementById('buyerPhone').value.trim();
 let address = document.getElementById('buyerAddress').value.trim();
 let size = document.getElementById('sizeSelect').value;
-if(!name || !phone || !address || !size) { alert("Please fill all fields"); return; }
+if(!name || !phone || !address || !size) { alert(translations[currentLang].fillFields); return; }
 let newOrder = {
 productName: selectedProductForBuy.name,
 size: size,
@@ -478,7 +680,7 @@ date: new Date().toLocaleString()
 };
 orders.unshift(newOrder);
 saveOrders();
-alert("✅ Order placed! We'll contact you soon.");
+alert(translations[currentLang].orderPlaced);
 closeBuyModal();
 if(currentAdmin) renderOrdersList();
 }
@@ -490,8 +692,8 @@ let price = parseFloat(document.getElementById('prodPrice').value);
 let sizesRaw = document.getElementById('prodSizes').value.trim();
 let imageUrl = document.getElementById('prodImage').value.trim();
 let stock = document.getElementById('prodStock').value;
-if(!name) { alert("Enter product name"); return; }
-if(isNaN(price) || price <=0) { alert("Valid price needed"); return; }
+if(!name) { alert(translations[currentLang].enterName); return; }
+if(isNaN(price) || price <=0) { alert(translations[currentLang].validPrice); return; }
 let sizesArr = sizesRaw ? sizesRaw.split(',').map(s=>s.trim()).filter(s=>s) : [];
 let newProd = { id: Date.now(), name, price, sizesArray: sizesArr, imageUrl, stockStatus: stock };
 products.push(newProd);
@@ -502,6 +704,7 @@ document.getElementById('prodName').value = '';
 document.getElementById('prodPrice').value = '';
 document.getElementById('prodSizes').value = '';
 document.getElementById('prodImage').value = '';
+alert(translations[currentLang].productAdded);
 }
 
 function renderAdminProducts() {
@@ -537,7 +740,7 @@ if(currentAdmin) renderAdminProducts();
 }
 
 function deleteProductById(id) {
-if(confirm("Delete this shoe?")) {
+if(confirm(translations[currentLang].deleteConfirm)) {
 products = products.filter(p=>p.id!==id);
 saveProducts();
 renderCustomerProducts();
@@ -548,7 +751,7 @@ if(currentAdmin) renderAdminProducts();
 function renderOrdersList() {
 let container = document.getElementById('ordersList');
 if(!container) return;
-if(orders.length===0) { container.innerHTML = '<p>No orders yet.</p>'; return; }
+if(orders.length===0) { container.innerHTML = `<p>${translations[currentLang].noOrders}</p>`; return; }
 container.innerHTML = orders.map((o,i)=>`
 <div style="border-left:4px solid #ff9800; background:#fafafa; margin:10px 0; padding:12px; border-radius:16px;">
 <strong>${o.productName}</strong> | Size: ${o.size} | ${o.price.toLocaleString()} DZD<br>
@@ -571,6 +774,7 @@ renderOrdersList();
 function renderAdminsList() {
 let container = document.getElementById('adminsList');
 if(!container) return;
+if(admins.length===0) { container.innerHTML = `<p>${translations[currentLang].noAdmins}</p>`; return; }
 container.innerHTML = admins.map((a,idx)=>`
 <div style="display:flex; justify-content:space-between; background:#f4f4f4; margin:6px 0; padding:8px; border-radius:30px;">
 <span>🔑 ${a}</span>
@@ -581,7 +785,7 @@ ${idx!==0 ? `<button class="remove-admin" data-pass="${a}" style="background:#dc
 document.querySelectorAll('.remove-admin').forEach(btn=>{
 btn.addEventListener('click',(e)=>{
 let pass = btn.dataset.pass;
-if(confirm(`Remove admin "${pass}"?`)){
+if(confirm(`${translations[currentLang].removeAdminConfirm} "${pass}"?`)){
 admins = admins.filter(a=>a!==pass);
 saveAdmins();
 if(currentAdmin && !admins.includes(currentAdmin)) logoutAdmin();
@@ -594,7 +798,7 @@ renderAdminsList();
 function addNewAdmin() {
 let newPass = document.getElementById('newAdminPass').value.trim();
 if(!newPass) return;
-if(admins.includes(newPass)) { alert("Already exists"); return; }
+if(admins.includes(newPass)) { alert(translations[currentLang].alreadyExists); return; }
 admins.push(newPass);
 saveAdmins();
 renderAdminsList();
@@ -646,6 +850,7 @@ btn.classList.add('active');
 checkSecretAndShowAdminButton();
 loadData();
 showHome();
+setLanguage('en');
 </script>
 </body>
 </html>
