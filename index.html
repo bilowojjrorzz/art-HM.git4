@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HM STORE | Premium Footwear</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+background: #f4f6f9;
+}
+
+.hero-section {
+background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+url('https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+background-size: cover;
+background-position: center 30%;
+background-attachment: fixed;
+color: white;
+padding: 2rem 2rem 4rem 2rem;
+border-radius: 0 0 2rem 2rem;
+}
+
+.navbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 1rem;
+padding: 0.5rem 0 1.5rem 0;
+}
+
+.logo {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.logo-icon {
+width: 55px;
+height: 55px;
+background: linear-gradient(145deg, #ff9800, #f57c00);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 28px;
+font-weight: bold;
+color: white;
+}
+
+.logo h1 { font-size: 2rem; }
+.logo h1 span { color: #ffb74d; }
+
+.nav-links {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+align-items: center;
+}
+.nav-links button {
+background: rgba(255,255,255,0.15);
+backdrop-filter: blur(4px);
+border: none;
+padding: 0.6rem 1.2rem;
+border-radius: 40px;
+color: white;
+font-weight: bold;
+cursor: pointer;
+transition: 0.2s;
+font-size: 1rem;
+}
+.nav-links button:hover {
+background: #ff9800;
+transform: translateY(-2px);
+}
+
+.admin-login-btn {
+background: #ff9800 !important;
+color: #1e1e2f !important;
+}
+
+.welcome-box {
+text-align: center;
+margin: 2rem 0 1rem;
+}
+.welcome-box h2 { font-size: 2.2rem; font-weight: 700; }
+.welcome-box p { font-size: 1.2rem; margin-top: 0.5rem; opacity: 0.9; }
+
+.admin-dashboard {
+background: white;
+margin: 2rem;
+padding: 1.8rem;
+border-radius: 28px;
+box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+display: none;
+}
+.admin-dashboard.show { display: block; }
+
+.admin-tabs {
+display: flex;
+gap: 1rem;
+border-bottom: 2px solid #eee;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+}
+.tab-btn {
+background: none;
+border: none;
+padding: 0.6rem 1.5rem;
+font-weight: bold;
+font-size: 1rem;
+cursor: pointer;
+border-radius: 30px;
+}
+.tab-btn.active { background: #ff9800; color: white; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+.form-row {
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+margin-bottom: 1.2rem;
+}
+.form-group {
+flex: 1;
+min-width: 180px;
+}
+.form-group label {
+font-weight: 600;
+display: block;
+margin-bottom: 6px;
+color: #333;
+}
+.form-group input, .form-group select {
+width: 100%;
+padding: 10px;
+border-radius: 14px;
+border: 1px solid #ccc;
+}
+button {
+background: #ff9800;
+border: none;
+padding: 10px 20px;
+border-radius: 40px;
+font-weight: bold;
+cursor: pointer;
+}
+.danger-btn { background: #dc3545; color: white; }
+
+.products-section {
+padding: 2rem;
+background: #f8f9fc;
+}
+.section-title {
+font-size: 2rem;
+margin-bottom: 1.5rem;
+text-align: center;
+font-weight: 700;
+}
+.product-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 2rem;
+}
+.product-card {
+background: white;
+border-radius: 24px;
+overflow: hidden;
+box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+transition: 0.2s;
+}
+.product-card:hover { transform: translateY(-6px); }
+.product-img {
+height: 210px;
+background: #f0f2f5;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.product-img img { width: 100%; height: 100%; object-fit: cover; }
+.product-info { padding: 1.2rem; }
+.product-name { font-size: 1.3rem; font-weight: bold; }
+.product-price { font-size: 1.6rem; font-weight: bold; color: #ff9800; margin: 8px 0; }
+.sizes-badge { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+.size-tag { background: #eee; padding: 4px 12px; border-radius: 40px; font-size: 0.75rem; }
+.stock-status { display: inline-block; padding: 4px 12px; border-radius: 40px; font-size: 0.75rem; margin: 6px 0; }
+.in-stock { background: #d1e7dd; color: #0f5132; }
+.out-stock { background: #f8d7da; color: #842029; }
+.buy-btn { background: #28a745; color: white; width: 100%; margin-top: 10px; padding: 10px; border-radius: 40px; border: none; cursor: pointer; }
+.buy-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+.contact-section {
+background: white;
+padding: 2rem;
+border-radius: 30px;
+margin: 1rem 2rem 2rem;
+text-align: center;
+}
+.contact-grid {
+display: flex;
+justify-content: center;
+gap: 2rem;
+flex-wrap: wrap;
+margin-top: 1.5rem;
+}
+.contact-card {
+background: #f8f9fc;
+padding: 1.2rem;
+border-radius: 24px;
+min-width: 180px;
+}
+footer {
+text-align: center;
+padding: 1.5rem;
+background: #1e1e2f;
+color: white;
+margin-top: 2rem;
+}
+
+.modal {
+display: none;
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(0,0,0,0.7);
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+.modal-content {
+background: white;
+padding: 2rem;
+border-radius: 32px;
+width: 90%;
+max-width: 450px;
+}
+.modal-content input, .modal-content select {
+width: 100%;
+padding: 10px;
+margin: 8px 0;
+border-radius: 30px;
+border: 1px solid #ccc;
+}
+.empty-message { text-align: center; padding: 3rem; color: #6c757d; }
+
+@media (max-width: 700px) {
+.hero-section { padding: 1rem; }
+.welcome-box h2 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero-section">
+<div class="navbar">
+<div class="logo">
+<img src="hm-logo-design-business-company-600w-1928476337.webp"
+style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
+<h1>HM <span>STORE</span></h1>
+</div>
+<div class="nav-links" id="navLinks">
+<button id="homeBtn">🏠 Home</button>
+<button id="productsNavBtn">👟 Our Products</button>
+<button id="contactNavBtn">📞 Contact</button>
+<!-- Admin button will appear only if secret key is present -->
+</div>
+</div>
+<div class="welcome-box">
+<h2>Welcome to HM STORE</h2>
+<p>⭐ Premium footwear for champions | Best quality & comfort ⭐</p>
+<p style="margin-top: 12px;">🔥 Discover the latest collection 🔥</p>
+</div>
+</div>
+
+<!-- Admin Dashboard -->
+<div id="adminDashboard" class="admin-dashboard">
+<div class="admin-tabs">
+<button class="tab-btn active" data-tab="productsTab">➕ Manage Products</button>
+<button class="tab-btn" data-tab="ordersTab">📦 Orders</button>
+<button class="tab-btn" data-tab="adminsTab">👥 Admins</button>
+</div>
+<div id="productsTab" class="tab-pane active">
+<h3>Add New Shoe</h3>
+<div class="form-row">
+<div class="form-group"><label>Model Name</label><input type="text" id="prodName" placeholder="e.g. HM Racer Pro"></div>
+<div class="form-group"><label>Price (DZD)</label><input type="number" id="prodPrice" placeholder="8500"></div>
+<div class="form-group"><label>Sizes (ex: 39,40,41)</label><input type="text" id="prodSizes" placeholder="39,40,41,42"></div>
+<div class="form-group"><label>Image URL</label><input type="text" id="prodImage" placeholder="https://..."></div>
+<div class="form-group"><label>Stock</label><select id="prodStock"><option value="in">✅ In Stock</option><option value="out">❌ Out of Stock</option></select></div>
+</div>
+<button id="addProductBtn">+ Add Product</button>
+<hr style="margin: 20px 0;">
+<h3>Existing Products</h3>
+<div id="adminProductsList" style="max-height: 300px; overflow-y: auto;"></div>
+</div>
+<div id="ordersTab" class="tab-pane">
+<h3>Customer Orders</h3>
+<div id="ordersList"></div>
+</div>
+<div id="adminsTab" class="tab-pane">
+<h3>Add New Admin</h3>
+<div class="form-row">
+<div class="form-group"><label>Admin Password</label><input type="text" id="newAdminPass" placeholder="new admin secret"></div>
+<div class="form-group"><label> </label><button id="addAdminBtn">+ Add Admin</button></div>
+</div>
+<h4>Current Admins</h4>
+<div id="adminsList"></div>
+</div>
+</div>
+
+<div id="productsCustomerSection" class="products-section">
+<div class="section-title">👟 Our Collection</div>
+<div id="customerProductGrid" class="product-grid"></div>
+</div>
+
+<div id="contactPage" style="display: none;">
+<div class="contact-section">
+<h2>📞 Contact HM STORE</h2>
+<div class="contact-grid">
+<div class="contact-card"><h3>📧 Email</h3><p>Daoudhamdani@gmail.com</p></div>
+<div class="contact-card"><h3>📱 Phone</h3><p>+213 5XX XX XX XX</p></div>
+<div class="contact-card"><h3>📍 Location</h3><p>Algiers, Algeria</p></div>
+<div class="contact-card"><h3>⏰ Hours</h3><p>24h</p></div>
+</div>
+</div>
+</div>
+
+<footer>
+<p>© 2025 HM STORE — Premium Footwear | Secure Shopping</p>
+</footer>
+
+<div id="buyModal" class="modal">
+<div class="modal-content">
+<h3>🛒 Complete Order</h3>
+<div id="modalProductInfo"></div>
+<input type="text" id="buyerFullName" placeholder="Full name">
+<input type="tel" id="buyerPhone" placeholder="Phone number">
+<input type="text" id="buyerAddress" placeholder="Shipping address">
+<select id="sizeSelect"><option value="">Select size</option></select>
+<button id="confirmOrderBtn">✅ Confirm Order</button>
+<button id="closeModalBtn" style="background:#aaa; margin-top:8px;">Cancel</button>
+</div>
+</div>
+
+<script>
+// السر السري - غير هذا الرقم كما تريد
+const SECRET_KEY = "HMADMIN2025";
+
+let products = [];
+let orders = [];
+let admins = ["KAKA09"];
+let currentAdmin = null;
+let selectedProductForBuy = null;
+
+function saveProducts() { localStorage.setItem('hm_products', JSON.stringify(products)); }
+function saveOrders() { localStorage.setItem('hm_orders', JSON.stringify(orders)); }
+function saveAdmins() { localStorage.setItem('hm_admins', JSON.stringify(admins)); }
+
+// التحقق من وجود الرقم السري في الرابط
+function checkSecretAndShowAdminButton() {
+const urlParams = new URLSearchParams(window.location.search);
+const secret = urlParams.get('secret');
+const navLinks = document.getElementById('navLinks');
+
+if (secret === SECRET_KEY) {
+// إضافة زر الأدمن
+const adminBtn = document.createElement('button');
+adminBtn.id = 'adminLoginBtn';
+adminBtn.className = 'admin-login-btn';
+adminBtn.textContent = '🔐 Admin';
+adminBtn.onclick = showAdminLogin;
+navLinks.appendChild(adminBtn);
+}
+}
+
+function showAdminLogin() {
+let pwd = prompt("🔐 Enter admin password:");
+if(pwd && admins.includes(pwd)) {
+currentAdmin = pwd;
+document.getElementById('adminDashboard').classList.add('show');
+renderAdminProducts();
+renderOrdersList();
+renderAdminsList();
+alert("Welcome Admin! You can now manage products, orders and other admins.");
+} else if(pwd) alert("Invalid password.");
+}
+
+function logoutAdmin() {
+currentAdmin = null;
+document.getElementById('adminDashboard').classList.remove('show');
+}
+
+function loadData() {
+let storedProducts = localStorage.getItem('hm_products');
+if(storedProducts) products = JSON.parse(storedProducts);
+else products = [];
+
+let storedOrders = localStorage.getItem('hm_orders');
+if(storedOrders) orders = JSON.parse(storedOrders);
+
+let storedAdmins = localStorage.getItem('hm_admins');
+if(storedAdmins) admins = JSON.parse(storedAdmins);
+if(!admins.includes("hmMaster2025")) admins.push("hmMaster2025");
+saveAdmins();
+
+renderCustomerProducts();
+if(currentAdmin) { renderAdminProducts(); renderOrdersList(); renderAdminsList(); }
+}
+
+function renderCustomerProducts() {
+let container = document.getElementById('customerProductGrid');
+if(!container) return;
+if(products.length === 0) { container.innerHTML = '<div class="empty-message">✨ No products yet. Admin will add them soon ✨</div>'; return; }
+container.innerHTML = products.map(p => {
+let sizesHtml = p.sizesArray.map(s => `<span class="size-tag">${s}</span>`).join('');
+let stockLabel = p.stockStatus === 'in' ? '✅ In Stock' : '❌ Out of Stock';
+let stockClass = p.stockStatus === 'in' ? 'in-stock' : 'out-stock';
+let disabledAttr = p.stockStatus !== 'in' ? 'disabled' : '';
+let imgHtml = p.imageUrl ? `<img src="${p.imageUrl}" onerror="this.src='https://via.placeholder.com/300?text=HM+Shoe'">` : '<div style="font-size:40px;">👟</div>';
+return `
+<div class="product-card">
+<div class="product-img">${imgHtml}</div>
+<div class="product-info">
+<div class="product-name">${escapeHtml(p.name)}</div>
+<div class="product-price">${Number(p.price).toLocaleString()} DZD</div>
+<div class="sizes-badge">${sizesHtml}</div>
+<div class="stock-status ${stockClass}">${stockLabel}</div>
+<button class="buy-btn" data-id="${p.id}" ${disabledAttr}>🛒 Buy Now</button>
+</div>
+</div>
+`;
+}).join('');
+
+document.querySelectorAll('.buy-btn').forEach(btn => {
+btn.addEventListener('click', (e) => {
+let id = parseInt(btn.getAttribute('data-id'));
+let product = products.find(p => p.id === id);
+if(product && product.stockStatus === 'in') openBuyModal(product);
+else alert("Sorry, this item is out of stock.");
+});
+});
+}
+
+function openBuyModal(product) {
+selectedProductForBuy = product;
+document.getElementById('modalProductInfo').innerHTML = `<strong>${product.name}</strong> — ${product.price.toLocaleString()} DZD`;
+let sizeSelect = document.getElementById('sizeSelect');
+sizeSelect.innerHTML = '<option value="">Select size</option>';
+product.sizesArray.forEach(sz => { sizeSelect.innerHTML += `<option value="${sz}">Size ${sz}</option>`; });
+document.getElementById('buyModal').style.display = 'flex';
+}
+
+function closeBuyModal() { document.getElementById('buyModal').style.display = 'none'; selectedProductForBuy = null; }
+
+function confirmOrder() {
+if(!selectedProductForBuy) return;
+let name = document.getElementById('buyerFullName').value.trim();
+let phone = document.getElementById('buyerPhone').value.trim();
+let address = document.getElementById('buyerAddress').value.trim();
+let size = document.getElementById('sizeSelect').value;
+if(!name || !phone || !address || !size) { alert("Please fill all fields"); return; }
+let newOrder = {
+productName: selectedProductForBuy.name,
+size: size,
+price: selectedProductForBuy.price,
+customerName: name,
+phone: phone,
+address: address,
+date: new Date().toLocaleString()
+};
+orders.unshift(newOrder);
+saveOrders();
+alert("✅ Order placed! We'll contact you soon.");
+closeBuyModal();
+if(currentAdmin) renderOrdersList();
+}
+
+function addProductFromAdmin() {
+if(!currentAdmin) return;
+let name = document.getElementById('prodName').value.trim();
+let price = parseFloat(document.getElementById('prodPrice').value);
+let sizesRaw = document.getElementById('prodSizes').value.trim();
+let imageUrl = document.getElementById('prodImage').value.trim();
+let stock = document.getElementById('prodStock').value;
+if(!name) { alert("Enter product name"); return; }
+if(isNaN(price) || price <=0) { alert("Valid price needed"); return; }
+let sizesArr = sizesRaw ? sizesRaw.split(',').map(s=>s.trim()).filter(s=>s) : [];
+let newProd = { id: Date.now(), name, price, sizesArray: sizesArr, imageUrl, stockStatus: stock };
+products.push(newProd);
+saveProducts();
+renderCustomerProducts();
+renderAdminProducts();
+document.getElementById('prodName').value = '';
+document.getElementById('prodPrice').value = '';
+document.getElementById('prodSizes').value = '';
+document.getElementById('prodImage').value = '';
+}
+
+function renderAdminProducts() {
+let container = document.getElementById('adminProductsList');
+if(!container) return;
+if(products.length === 0) { container.innerHTML = '<p>No products added yet.</p>'; return; }
+container.innerHTML = products.map(p => `
+<div style="border:1px solid #ddd; border-radius:20px; padding:12px; margin-bottom:10px;">
+<strong>${escapeHtml(p.name)}</strong> - ${p.price.toLocaleString()} DZD | Sizes: ${p.sizesArray.join(', ')} | ${p.stockStatus === 'in' ? 'In Stock' : 'Out'}
+<div style="margin-top:8px;">
+<button class="toggle-stock" data-id="${p.id}">🔄 Toggle Stock</button>
+<button class="delete-prod" data-id="${p.id}" style="background:#dc3545; color:white;">🗑 Delete</button>
+</div>
+</div>
+`).join('');
+
+document.querySelectorAll('.toggle-stock').forEach(btn => {
+btn.addEventListener('click', (e) => { let id = parseInt(btn.dataset.id); toggleStock(id); });
+});
+document.querySelectorAll('.delete-prod').forEach(btn => {
+btn.addEventListener('click', (e) => { let id = parseInt(btn.dataset.id); deleteProductById(id); });
+});
+}
+
+function toggleStock(id) {
+let prod = products.find(p=>p.id===id);
+if(prod) {
+prod.stockStatus = prod.stockStatus==='in'?'out':'in';
+saveProducts();
+renderCustomerProducts();
+if(currentAdmin) renderAdminProducts();
+}
+}
+
+function deleteProductById(id) {
+if(confirm("Delete this shoe?")) {
+products = products.filter(p=>p.id!==id);
+saveProducts();
+renderCustomerProducts();
+if(currentAdmin) renderAdminProducts();
+}
+}
+
+function renderOrdersList() {
+let container = document.getElementById('ordersList');
+if(!container) return;
+if(orders.length===0) { container.innerHTML = '<p>No orders yet.</p>'; return; }
+container.innerHTML = orders.map((o,i)=>`
+<div style="border-left:4px solid #ff9800; background:#fafafa; margin:10px 0; padding:12px; border-radius:16px;">
+<strong>${o.productName}</strong> | Size: ${o.size} | ${o.price.toLocaleString()} DZD<br>
+👤 ${o.customerName} | 📞 ${o.phone}<br>
+📍 ${o.address}<br>📅 ${o.date}<br>
+<button class="del-order" data-index="${i}" style="background:#dc3545; color:white; margin-top:6px;">Delete Order</button>
+</div>
+`).join('');
+
+document.querySelectorAll('.del-order').forEach(btn=>{
+btn.addEventListener('click',(e)=>{
+let idx=parseInt(btn.dataset.index);
+orders.splice(idx,1);
+saveOrders();
+renderOrdersList();
+});
+});
+}
+
+function renderAdminsList() {
+let container = document.getElementById('adminsList');
+if(!container) return;
+container.innerHTML = admins.map((a,idx)=>`
+<div style="display:flex; justify-content:space-between; background:#f4f4f4; margin:6px 0; padding:8px; border-radius:30px;">
+<span>🔑 ${a}</span>
+${idx!==0 ? `<button class="remove-admin" data-pass="${a}" style="background:#dc3545; color:white; border:none; padding:4px 12px; border-radius:20px;">Remove</button>` : '<span style="color:#ff9800;">Master</span>'}
+</div>
+`).join('');
+
+document.querySelectorAll('.remove-admin').forEach(btn=>{
+btn.addEventListener('click',(e)=>{
+let pass = btn.dataset.pass;
+if(confirm(`Remove admin "${pass}"?`)){
+admins = admins.filter(a=>a!==pass);
+saveAdmins();
+if(currentAdmin && !admins.includes(currentAdmin)) logoutAdmin();
+renderAdminsList();
+}
+});
+});
+}
+
+function addNewAdmin() {
+let newPass = document.getElementById('newAdminPass').value.trim();
+if(!newPass) return;
+if(admins.includes(newPass)) { alert("Already exists"); return; }
+admins.push(newPass);
+saveAdmins();
+renderAdminsList();
+document.getElementById('newAdminPass').value = '';
+}
+
+function showHome() {
+document.getElementById('productsCustomerSection').style.display = 'block';
+document.getElementById('contactPage').style.display = 'none';
+}
+function showProductsCustomer() {
+document.getElementById('productsCustomerSection').style.display = 'block';
+document.getElementById('contactPage').style.display = 'none';
+}
+function showContact() {
+document.getElementById('productsCustomerSection').style.display = 'none';
+document.getElementById('contactPage').style.display = 'block';
+}
+
+function escapeHtml(str) {
+if(!str) return '';
+return str.replace(/[&<>]/g, function(m){
+if(m==='&') return '&amp;';
+if(m==='<') return '&lt;';
+if(m==='>') return '&gt;';
+return m;
+});
+}
+
+document.getElementById('homeBtn').onclick = showHome;
+document.getElementById('productsNavBtn').onclick = showProductsCustomer;
+document.getElementById('contactNavBtn').onclick = showContact;
+document.getElementById('addProductBtn').onclick = addProductFromAdmin;
+document.getElementById('addAdminBtn').onclick = addNewAdmin;
+document.getElementById('confirmOrderBtn').onclick = confirmOrder;
+document.getElementById('closeModalBtn').onclick = closeBuyModal;
+window.onclick = function(e) { if(e.target === document.getElementById('buyModal')) closeBuyModal(); };
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+btn.addEventListener('click', () => {
+let tabId = btn.getAttribute('data-tab');
+document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+document.getElementById(tabId).classList.add('active');
+document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+btn.classList.add('active');
+});
+});
+
+checkSecretAndShowAdminButton();
+loadData();
+showHome();
+</script>
+</body>
+</html>
+```
