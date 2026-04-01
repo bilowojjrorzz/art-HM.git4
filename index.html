@@ -55,7 +55,6 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 .logo h1 { font-size: 1.8rem; }
 .logo h1 span { color: #ffb74d; }
 
-/* زر القائمة للهاتف */
 .menu-icon {
 display: none;
 font-size: 1.8rem;
@@ -95,7 +94,7 @@ background: #ff9800;
 transform: translateY(-2px);
 }
 
-/* زر اللغة والقائمة المنسدلة */
+/* زر اللغة - يعمل بالضغط */
 .language-dropdown {
 position: relative;
 display: inline-block;
@@ -103,6 +102,7 @@ display: inline-block;
 .lang-main-btn {
 background: rgba(0,0,0,0.6) !important;
 padding: 0.6rem 1.2rem !important;
+cursor: pointer;
 }
 .lang-dropdown-content {
 display: none;
@@ -116,6 +116,9 @@ box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 z-index: 100;
 overflow: hidden;
 }
+.lang-dropdown-content.show {
+display: block;
+}
 .lang-dropdown-content button {
 background: white !important;
 color: #333 !important;
@@ -124,13 +127,12 @@ width: 100%;
 padding: 12px 15px !important;
 border-radius: 0 !important;
 font-size: 0.9rem !important;
+border: none;
+cursor: pointer;
 }
 .lang-dropdown-content button:hover {
 background: #ff9800 !important;
 color: white !important;
-}
-.language-dropdown:hover .lang-dropdown-content {
-display: block;
 }
 
 .admin-login-btn {
@@ -145,7 +147,6 @@ margin: 2rem 0 1rem;
 .welcome-box h2 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
 .welcome-box p { font-size: 1rem; margin-top: 0.5rem; opacity: 0.9; }
 
-/* زر Our Products الجديد */
 .hero-btn {
 background: linear-gradient(135deg, #ff9800, #f57c00);
 border: none;
@@ -347,22 +348,10 @@ font-size: 0.9rem;
 }
 .empty-message { text-align: center; padding: 3rem; color: #6c757d; }
 
-/* ========== تحسينات للهاتف ========== */
 @media (max-width: 768px) {
-body {
-font-size: 14px;
-}
-
-.navbar {
-flex-direction: row;
-justify-content: space-between;
-flex-wrap: nowrap;
-}
-
-.menu-icon {
-display: block;
-}
-
+body { font-size: 14px; }
+.navbar { flex-direction: row; justify-content: space-between; flex-wrap: nowrap; }
+.menu-icon { display: block; }
 .nav-links {
 display: none;
 position: absolute;
@@ -379,22 +368,9 @@ margin-top: 0.5rem;
 z-index: 100;
 gap: 0.5rem;
 }
-
-.nav-links.show {
-display: flex;
-}
-
-.nav-links button {
-width: 100%;
-text-align: center;
-padding: 12px;
-font-size: 1rem;
-}
-
-.language-dropdown {
-width: 100%;
-}
-
+.nav-links.show { display: flex; }
+.nav-links button { width: 100%; text-align: center; padding: 12px; font-size: 1rem; }
+.language-dropdown { width: 100%; }
 .lang-dropdown-content {
 position: static;
 width: 100%;
@@ -402,70 +378,25 @@ margin-top: 0.5rem;
 box-shadow: none;
 background: rgba(255,255,255,0.1);
 }
-
 .lang-dropdown-content button {
 background: rgba(255,255,255,0.15) !important;
 color: white !important;
 }
-
-.language-dropdown:hover .lang-dropdown-content {
-display: none;
-}
-
-.product-grid {
-grid-template-columns: 1fr;
-gap: 1.2rem;
-}
-
-.product-img {
-height: 200px;
-}
-
-.welcome-box h2 {
-font-size: 1.4rem;
-}
-
-.section-title {
-font-size: 1.5rem;
-}
-
-.admin-dashboard {
-margin: 1rem;
-padding: 1.2rem;
-}
-
-.form-row {
-flex-direction: column;
-}
-
-.contact-section {
-margin: 1rem;
-}
-
-.contact-grid {
-flex-direction: column;
-gap: 1rem;
-}
-
-.hero-btn {
-padding: 10px 24px;
-font-size: 1rem;
-}
+.product-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+.product-img { height: 200px; }
+.welcome-box h2 { font-size: 1.4rem; }
+.section-title { font-size: 1.5rem; }
+.admin-dashboard { margin: 1rem; padding: 1.2rem; }
+.form-row { flex-direction: column; }
+.contact-section { margin: 1rem; }
+.contact-grid { flex-direction: column; gap: 1rem; }
+.hero-btn { padding: 10px 24px; font-size: 1rem; }
 }
 
 @media (max-width: 480px) {
-.logo h1 {
-font-size: 1.3rem;
-}
-
-.logo img {
-width: 45px;
-height: 45px;
-}
-
-.welcome-box h2 {
-font-size: 1.2rem;
-}
+.logo h1 { font-size: 1.3rem; }
+.logo img { width: 45px; height: 45px; }
+.welcome-box h2 { font-size: 1.2rem; }
 }
 </style>
 </head>
@@ -474,38 +405,31 @@ font-size: 1.2rem;
 <div class="hero-section">
 <div class="navbar">
 <div class="logo">
-<img src="hm-logo-design-business-company-600w-1928476337.webp"
-style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
+<img src="hm-logo-design-business-company-600w-1928476337.webp" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 <h1>HM <span>STORE</span></h1>
 </div>
 <div class="menu-icon" onclick="toggleMobileMenu()">☰</div>
 <div class="nav-links" id="navLinks">
-<!-- زر Home قابل للضغط -->
 <button id="homeBtn">🏠 Home</button>
 <button id="contactNavBtn">📞 Contact</button>
-
-<!-- زر اللغة -->
-<div class="language-dropdown">
-<button class="lang-main-btn">🌐 Language</button>
-<div class="lang-dropdown-content">
+<div class="language-dropdown" id="languageDropdown">
+<button class="lang-main-btn" id="langMainBtn">🌐 Language</button>
+<div class="lang-dropdown-content" id="langDropdownContent">
 <button onclick="setLanguage('en')">🇬🇧 English</button>
 <button onclick="setLanguage('fr')">🇫🇷 Français</button>
 <button onclick="setLanguage('ar')">🇸🇦 العربية</button>
 </div>
 </div>
-
 </div>
 </div>
 <div class="welcome-box">
 <h2 id="welcomeTitle">Welcome to HM STORE</h2>
 <p id="welcomeSub">⭐ Premium footwear for champions | Best quality & comfort ⭐</p>
 <p id="welcomeDesc" style="margin-top: 12px;">🔥 Discover the latest collection 🔥</p>
-<!-- زر Our Products الجديد -->
 <button class="hero-btn" onclick="showProductsSection()">👟 Our Products</button>
 </div>
 </div>
 
-<!-- Admin Dashboard -->
 <div id="adminDashboard" class="admin-dashboard">
 <div class="admin-tabs">
 <button class="tab-btn active" data-tab="productsTab" id="tabProducts">➕ Manage Products</button>
@@ -541,13 +465,11 @@ style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 </div>
 </div>
 
-<!-- صفحة المنتجات -->
 <div id="productsCustomerSection" class="products-section">
 <div class="section-title" id="collectionTitle">👟 Our Collection</div>
 <div id="customerProductGrid" class="product-grid"></div>
 </div>
 
-<!-- صفحة الاتصال -->
 <div id="contactPage" style="display: none;">
 <div class="contact-section">
 <h2 id="contactTitle">📞 Contact HM STORE</h2>
@@ -578,180 +500,33 @@ style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 </div>
 
 <script>
-// دالة لفتح وإغلاق القائمة على الجوال
+// دالة القائمة المنبثقة للهاتف
 function toggleMobileMenu() {
-const navLinks = document.getElementById('navLinks');
-navLinks.classList.toggle('show');
+document.getElementById('navLinks').classList.toggle('show');
 }
 
-// دالة لإظهار صفحة المنتجات
+// دوال التنقل
 function showProductsSection() {
 document.getElementById('productsCustomerSection').style.display = 'block';
 document.getElementById('contactPage').style.display = 'none';
 document.getElementById('navLinks').classList.remove('show');
 }
-
-// دالة لإظهار الصفحة الرئيسية
 function showHome() {
 document.getElementById('productsCustomerSection').style.display = 'block';
 document.getElementById('contactPage').style.display = 'none';
 document.getElementById('navLinks').classList.remove('show');
 }
-
-// دالة لإظهار صفحة الاتصال
 function showContact() {
 document.getElementById('productsCustomerSection').style.display = 'none';
 document.getElementById('contactPage').style.display = 'block';
 document.getElementById('navLinks').classList.remove('show');
 }
 
-// إغلاق القائمة عند الضغط على أي زر
-document.querySelectorAll('#navLinks button').forEach(btn => {
-btn.addEventListener('click', () => {
-document.getElementById('navLinks').classList.remove('show');
-});
-});
-
-// ========== إعدادات اللغة ==========
+// ========== اللغة ==========
 const translations = {
-en: {
-home: "🏠 Home",
-contact: "📞 Contact",
-welcomeTitle: "Welcome to HM STORE",
-welcomeSub: "⭐ Premium footwear for champions | Best quality & comfort ⭐",
-welcomeDesc: "🔥 Discover the latest collection 🔥",
-tabProducts: "➕ Manage Products",
-tabOrders: "📦 Orders",
-tabAdmins: "👥 Admins",
-addProductTitle: "Add New Shoe",
-labelName: "Model Name",
-labelPrice: "Price (DZD)",
-labelSizes: "Sizes (ex: 39,40,41)",
-labelImage: "Image URL",
-labelStock: "Stock",
-addProductBtn: "+ Add Product",
-existingTitle: "Existing Products",
-ordersTitle: "Customer Orders",
-addAdminTitle: "Add New Admin",
-labelAdminPass: "Admin Password",
-currentAdminsTitle: "Current Admins",
-collectionTitle: "👟 Our Collection",
-contactTitle: "📞 Contact HM STORE",
-contactPhone: "📱 Phone",
-contactLocation: "📍 Location",
-contactHours: "⏰ Hours",
-footerText: "© 2025 HM STORE — Premium Footwear | Secure Shopping",
-orderTitle: "🛒 Complete Order",
-buyNow: "🛒 Buy Now",
-inStock: "✅ In Stock",
-outStock: "❌ Out of Stock",
-noProducts: "✨ No products yet. Admin will add them soon ✨",
-noOrders: "No orders yet.",
-noAdmins: "No admins yet.",
-fillFields: "Please fill all fields",
-orderPlaced: "✅ Order placed! We'll contact you soon.",
-enterName: "Enter product name",
-validPrice: "Valid price needed",
-productAdded: "Product added!",
-deleteConfirm: "Delete this shoe?",
-removeAdminConfirm: "Remove admin",
-alreadyExists: "Already exists",
-invalidPassword: "Invalid password",
-welcomeAdmin: "Welcome Admin!",
-loggedOut: "Logged out!"
-},
-fr: {
-home: "🏠 Accueil",
-contact: "📞 Contact",
-welcomeTitle: "Bienvenue chez HM STORE",
-welcomeSub: "⭐ Chaussures premium pour champions | Meilleure qualité et confort ⭐",
-welcomeDesc: "🔥 Découvrez la dernière collection 🔥",
-tabProducts: "➕ Gérer les Produits",
-tabOrders: "📦 Commandes",
-tabAdmins: "👥 Admins",
-addProductTitle: "Ajouter une Chaussure",
-labelName: "Nom du Modèle",
-labelPrice: "Prix (DZD)",
-labelSizes: "Tailles (ex: 39,40,41)",
-labelImage: "URL de l'image",
-labelStock: "Stock",
-addProductBtn: "+ Ajouter",
-existingTitle: "Produits Existants",
-ordersTitle: "Commandes Clients",
-addAdminTitle: "Ajouter un Admin",
-labelAdminPass: "Mot de passe Admin",
-currentAdminsTitle: "Admins Actuels",
-collectionTitle: "👟 Notre Collection",
-contactTitle: "📞 Contact HM STORE",
-contactPhone: "📱 Téléphone",
-contactLocation: "📍 Adresse",
-contactHours: "⏰ Horaires",
-footerText: "© 2025 HM STORE — Chaussures Premium | Achat Sécurisé",
-orderTitle: "🛒 Finaliser la Commande",
-buyNow: "🛒 Acheter",
-inStock: "✅ En Stock",
-outStock: "❌ Rupture",
-noProducts: "✨ Aucun produit pour le moment. L'administrateur les ajoutera bientôt ✨",
-noOrders: "Aucune commande pour le moment.",
-noAdmins: "Aucun administrateur.",
-fillFields: "Veuillez remplir tous les champs",
-orderPlaced: "✅ Commande passée ! Nous vous contacterons bientôt.",
-enterName: "Entrez le nom du produit",
-validPrice: "Prix valide requis",
-productAdded: "Produit ajouté !",
-deleteConfirm: "Supprimer cette chaussure ?",
-removeAdminConfirm: "Supprimer l'administrateur",
-alreadyExists: "Existe déjà",
-invalidPassword: "Mot de passe invalide",
-welcomeAdmin: "Bienvenue Administrateur !",
-loggedOut: "Déconnecté !"
-},
-ar: {
-home: "🏠 الرئيسية",
-contact: "📞 اتصل بنا",
-welcomeTitle: "مرحباً بكم في HM STORE",
-welcomeSub: "⭐ أحذية فاخرة للأبطال | أفضل جودة وراحة ⭐",
-welcomeDesc: "🔥 اكتشف أحدث المجموعات 🔥",
-tabProducts: "➕ إدارة المنتجات",
-tabOrders: "📦 الطلبات",
-tabAdmins: "👥 المشرفون",
-addProductTitle: "إضافة حذاء جديد",
-labelName: "اسم الموديل",
-labelPrice: "السعر (دج)",
-labelSizes: "المقاسات (مثال: 39,40,41)",
-labelImage: "رابط الصورة",
-labelStock: "المخزون",
-addProductBtn: "+ إضافة منتج",
-existingTitle: "المنتجات الموجودة",
-ordersTitle: "طلبات العملاء",
-addAdminTitle: "إضافة مشرف جديد",
-labelAdminPass: "كلمة مرور المشرف",
-currentAdminsTitle: "المشرفون الحاليون",
-collectionTitle: "👟 مجموعتنا",
-contactTitle: "📞 اتصل بـ HM STORE",
-contactPhone: "📱 الهاتف",
-contactLocation: "📍 الموقع",
-contactHours: "⏰ ساعات العمل",
-footerText: "© 2025 HM STORE — أحذية فاخرة | تسوق آمن",
-orderTitle: "🛒 إتمام الطلب",
-buyNow: "🛒 شراء الآن",
-inStock: "✅ متوفر",
-outStock: "❌ نفدت الكمية",
-noProducts: "✨ لا توجد منتجات حالياً. سيتم إضافتها قريباً ✨",
-noOrders: "لا توجد طلبات حالياً.",
-noAdmins: "لا يوجد مشرفون.",
-fillFields: "الرجاء ملء جميع الحقول",
-orderPlaced: "✅ تم تقديم الطلب! سنتواصل معك قريباً.",
-enterName: "الرجاء إدخال اسم المنتج",
-validPrice: "الرجاء إدخال سعر صحيح",
-productAdded: "تم إضافة المنتج!",
-deleteConfirm: "هل تريد حذف هذا الحذاء؟",
-removeAdminConfirm: "حذف المشرف",
-alreadyExists: "كلمة المرور موجودة مسبقاً",
-invalidPassword: "كلمة مرور خاطئة",
-welcomeAdmin: "مرحباً بك في لوحة التحكم!",
-loggedOut: "تم تسجيل الخروج!"
-}
+en: { home: "🏠 Home", contact: "📞 Contact", welcomeTitle: "Welcome to HM STORE", welcomeSub: "⭐ Premium footwear for champions | Best quality & comfort ⭐", welcomeDesc: "🔥 Discover the latest collection 🔥", tabProducts: "➕ Manage Products", tabOrders: "📦 Orders", tabAdmins: "👥 Admins", addProductTitle: "Add New Shoe", labelName: "Model Name", labelPrice: "Price (DZD)", labelSizes: "Sizes (ex: 39,40,41)", labelImage: "Image URL", labelStock: "Stock", addProductBtn: "+ Add Product", existingTitle: "Existing Products", ordersTitle: "Customer Orders", addAdminTitle: "Add New Admin", labelAdminPass: "Admin Password", currentAdminsTitle: "Current Admins", collectionTitle: "👟 Our Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Phone", contactLocation: "📍 Location", contactHours: "⏰ Hours", footerText: "© 2025 HM STORE — Premium Footwear | Secure Shopping", orderTitle: "🛒 Complete Order", buyNow: "🛒 Buy Now", inStock: "✅ In Stock", outStock: "❌ Out of Stock", noProducts: "✨ No products yet. Admin will add them soon ✨", noOrders: "No orders yet.", noAdmins: "No admins yet.", fillFields: "Please fill all fields", orderPlaced: "✅ Order placed! We'll contact you soon.", enterName: "Enter product name", validPrice: "Valid price needed", productAdded: "Product added!", deleteConfirm: "Delete this shoe?", removeAdminConfirm: "Remove admin", alreadyExists: "Already exists", invalidPassword: "Invalid password", welcomeAdmin: "Welcome Admin!" },
+fr: { home: "🏠 Accueil", contact: "📞 Contact", welcomeTitle: "Bienvenue chez HM STORE", welcomeSub: "⭐ Chaussures premium pour champions | Meilleure qualité et confort ⭐", welcomeDesc: "🔥 Découvrez la dernière collection 🔥", tabProducts: "➕ Gérer les Produits", tabOrders: "📦 Commandes", tabAdmins: "👥 Admins", addProductTitle: "Ajouter une Chaussure", labelName: "Nom du Modèle", labelPrice: "Prix (DZD)", labelSizes: "Tailles (ex: 39,40,41)", labelImage: "URL de l'image", labelStock: "Stock", addProductBtn: "+ Ajouter", existingTitle: "Produits Existants", ordersTitle: "Commandes Clients", addAdminTitle: "Ajouter un Admin", labelAdminPass: "Mot de passe Admin", currentAdminsTitle: "Admins Actuels", collectionTitle: "👟 Notre Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Téléphone", contactLocation: "📍 Adresse", contactHours: "⏰ Horaires", footerText: "© 2025 HM STORE — Chaussures Premium | Achat Sécurisé", orderTitle: "🛒 Finaliser la Commande", buyNow: "🛒 Acheter", inStock: "✅ En Stock", outStock: "❌ Rupture", noProducts: "✨ Aucun produit pour le moment. ✨", noOrders: "Aucune commande.", noAdmins: "Aucun administrateur.", fillFields: "Veuillez remplir tous les champs", orderPlaced: "✅ Commande passée !", enterName: "Entrez le nom", validPrice: "Prix valide requis", productAdded: "Produit ajouté !", deleteConfirm: "Supprimer ?", removeAdminConfirm: "Supprimer admin", alreadyExists: "Existe déjà", invalidPassword: "Mot de passe invalide", welcomeAdmin: "Bienvenue Admin !" },
+ar: { home: "🏠 الرئيسية", contact: "📞 اتصل بنا", welcomeTitle: "مرحباً بكم في HM STORE", welcomeSub: "⭐ أحذية فاخرة للأبطال | أفضل جودة وراحة ⭐", welcomeDesc: "🔥 اكتشف أحدث المجموعات 🔥", tabProducts: "➕ إدارة المنتجات", tabOrders: "📦 الطلبات", tabAdmins: "👥 المشرفون", addProductTitle: "إضافة حذاء جديد", labelName: "اسم الموديل", labelPrice: "السعر (دج)", labelSizes: "المقاسات (مثال: 39,40,41)", labelImage: "رابط الصورة", labelStock: "المخزون", addProductBtn: "+ إضافة منتج", existingTitle: "المنتجات الموجودة", ordersTitle: "طلبات العملاء", addAdminTitle: "إضافة مشرف جديد", labelAdminPass: "كلمة مرور المشرف", currentAdminsTitle: "المشرفون الحاليون", collectionTitle: "👟 مجموعتنا", contactTitle: "📞 اتصل بـ HM STORE", contactPhone: "📱 الهاتف", contactLocation: "📍 الموقع", contactHours: "⏰ ساعات العمل", footerText: "© 2025 HM STORE — أحذية فاخرة | تسوق آمن", orderTitle: "🛒 إتمام الطلب", buyNow: "🛒 شراء الآن", inStock: "✅ متوفر", outStock: "❌ نفدت الكمية", noProducts: "✨ لا توجد منتجات حالياً ✨", noOrders: "لا توجد طلبات", noAdmins: "لا يوجد مشرفون", fillFields: "الرجاء ملء جميع الحقول", orderPlaced: "✅ تم تقديم الطلب!", enterName: "الرجاء إدخال اسم المنتج", validPrice: "الرجاء إدخال سعر صحيح", productAdded: "تم إضافة المنتج!", deleteConfirm: "هل تريد حذف هذا الحذاء؟", removeAdminConfirm: "حذف المشرف", alreadyExists: "كلمة المرور موجودة مسبقاً", invalidPassword: "كلمة مرور خاطئة", welcomeAdmin: "مرحباً بك في لوحة التحكم!" }
 };
 
 let currentLang = 'en';
@@ -759,324 +534,120 @@ let currentLang = 'en';
 function setLanguage(lang) {
 currentLang = lang;
 const t = translations[lang];
-
-// تحديث النصوص
 document.getElementById('homeBtn').innerHTML = t.home;
 document.getElementById('contactNavBtn').innerHTML = t.contact;
 document.getElementById('welcomeTitle').innerHTML = t.welcomeTitle;
 document.getElementById('welcomeSub').innerHTML = t.welcomeSub;
 document.getElementById('welcomeDesc').innerHTML = t.welcomeDesc;
-
-if (document.getElementById('tabProducts')) document.getElementById('tabProducts').innerHTML = t.tabProducts;
-if (document.getElementById('tabOrders')) document.getElementById('tabOrders').innerHTML = t.tabOrders;
-if (document.getElementById('tabAdmins')) document.getElementById('tabAdmins').innerHTML = t.tabAdmins;
-if (document.getElementById('addProductTitle')) document.getElementById('addProductTitle').innerHTML = t.addProductTitle;
-if (document.getElementById('labelName')) document.getElementById('labelName').innerHTML = t.labelName;
-if (document.getElementById('labelPrice')) document.getElementById('labelPrice').innerHTML = t.labelPrice;
-if (document.getElementById('labelSizes')) document.getElementById('labelSizes').innerHTML = t.labelSizes;
-if (document.getElementById('labelImage')) document.getElementById('labelImage').innerHTML = t.labelImage;
-if (document.getElementById('labelStock')) document.getElementById('labelStock').innerHTML = t.labelStock;
-if (document.getElementById('addProductBtn')) document.getElementById('addProductBtn').innerHTML = t.addProductBtn;
-if (document.getElementById('existingTitle')) document.getElementById('existingTitle').innerHTML = t.existingTitle;
-if (document.getElementById('ordersTitle')) document.getElementById('ordersTitle').innerHTML = t.ordersTitle;
-if (document.getElementById('addAdminTitle')) document.getElementById('addAdminTitle').innerHTML = t.addAdminTitle;
-if (document.getElementById('labelAdminPass')) document.getElementById('labelAdminPass').innerHTML = t.labelAdminPass;
-if (document.getElementById('currentAdminsTitle')) document.getElementById('currentAdminsTitle').innerHTML = t.currentAdminsTitle;
-if (document.getElementById('collectionTitle')) document.getElementById('collectionTitle').innerHTML = t.collectionTitle;
-if (document.getElementById('contactTitle')) document.getElementById('contactTitle').innerHTML = t.contactTitle;
-if (document.getElementById('contactPhone')) document.getElementById('contactPhone').innerHTML = t.contactPhone;
-if (document.getElementById('contactLocation')) document.getElementById('contactLocation').innerHTML = t.contactLocation;
-if (document.getElementById('contactHours')) document.getElementById('contactHours').innerHTML = t.contactHours;
-if (document.getElementById('footerText')) document.getElementById('footerText').innerHTML = t.footerText;
-if (document.getElementById('orderTitle')) document.getElementById('orderTitle').innerHTML = t.orderTitle;
-// تغيير اتجاه الصفحة للعربية
-if (lang === 'ar') {
-document.body.style.direction = 'rtl';
-} else {
-document.body.style.direction = 'ltr';
-}
-
+if(document.getElementById('tabProducts')) document.getElementById('tabProducts').innerHTML = t.tabProducts;
+if(document.getElementById('tabOrders')) document.getElementById('tabOrders').innerHTML = t.tabOrders;
+if(document.getElementById('tabAdmins')) document.getElementById('tabAdmins').innerHTML = t.tabAdmins;
+if(document.getElementById('addProductTitle')) document.getElementById('addProductTitle').innerHTML = t.addProductTitle;
+if(document.getElementById('labelName')) document.getElementById('labelName').innerHTML = t.labelName;
+if(document.getElementById('labelPrice')) document.getElementById('labelPrice').innerHTML = t.labelPrice;
+if(document.getElementById('labelSizes')) document.getElementById('labelSizes').innerHTML = t.labelSizes;
+if(document.getElementById('labelImage')) document.getElementById('labelImage').innerHTML = t.labelImage;
+if(document.getElementById('labelStock')) document.getElementById('labelStock').innerHTML = t.labelStock;
+if(document.getElementById('addProductBtn')) document.getElementById('addProductBtn').innerHTML = t.addProductBtn;
+if(document.getElementById('existingTitle')) document.getElementById('existingTitle').innerHTML = t.existingTitle;
+if(document.getElementById('ordersTitle')) document.getElementById('ordersTitle').innerHTML = t.ordersTitle;
+if(document.getElementById('addAdminTitle')) document.getElementById('addAdminTitle').innerHTML = t.addAdminTitle;
+if(document.getElementById('labelAdminPass')) document.getElementById('labelAdminPass').innerHTML = t.labelAdminPass;
+if(document.getElementById('currentAdminsTitle')) document.getElementById('currentAdminsTitle').innerHTML = t.currentAdminsTitle;
+if(document.getElementById('collectionTitle')) document.getElementById('collectionTitle').innerHTML = t.collectionTitle;
+if(document.getElementById('contactTitle')) document.getElementById('contactTitle').innerHTML = t.contactTitle;
+if(document.getElementById('contactPhone')) document.getElementById('contactPhone').innerHTML = t.contactPhone;
+if(document.getElementById('contactLocation')) document.getElementById('contactLocation').innerHTML = t.contactLocation;
+if(document.getElementById('contactHours')) document.getElementById('contactHours').innerHTML = t.contactHours;
+if(document.getElementById('footerText')) document.getElementById('footerText').innerHTML = t.footerText;
+if(document.getElementById('orderTitle')) document.getElementById('orderTitle').innerHTML = t.orderTitle;
+document.body.style.direction = lang === 'ar' ? 'rtl' : 'ltr';
+closeLanguageMenu();
 renderCustomerProducts();
 }
 
-// ========== باقي الكود الأصلي ==========
+// التحكم في قائمة اللغة (بالضغط)
+function toggleLanguageMenu(e) {
+e.stopPropagation();
+document.getElementById('langDropdownContent').classList.toggle('show');
+}
+function closeLanguageMenu() {
+document.getElementById('langDropdownContent').classList.remove('show');
+}
+document.getElementById('langMainBtn').addEventListener('click', toggleLanguageMenu);
+document.addEventListener('click', function(e) {
+if(!document.getElementById('languageDropdown').contains(e.target)) closeLanguageMenu();
+});
+
+// ========== باقي كود المنتجات والأدمن (نفس الكود القديم) ==========
 const SECRET_KEY = "HMADMIN2025";
-
-let products = [];
-let orders = [];
-let admins = ["KAKA09"];
-let currentAdmin = null;
-let selectedProductForBuy = null;
-
+let products = [], orders = [], admins = ["KAKA09"], currentAdmin = null, selectedProductForBuy = null;
 function saveProducts() { localStorage.setItem('hm_products', JSON.stringify(products)); }
 function saveOrders() { localStorage.setItem('hm_orders', JSON.stringify(orders)); }
 function saveAdmins() { localStorage.setItem('hm_admins', JSON.stringify(admins)); }
 
 function checkSecretAndShowAdminButton() {
-const urlParams = new URLSearchParams(window.location.search);
-const secret = urlParams.get('secret');
-const navLinks = document.getElementById('navLinks');
-
-if (secret === SECRET_KEY) {
-const adminBtn = document.createElement('button');
-adminBtn.id = 'adminLoginBtn';
-adminBtn.className = 'admin-login-btn';
-adminBtn.textContent = '🔐 Admin';
-adminBtn.onclick = showAdminLogin;
-navLinks.appendChild(adminBtn);
+if(new URLSearchParams(window.location.search).get('secret') === SECRET_KEY) {
+let btn = document.createElement('button');
+btn.id = 'adminLoginBtn'; btn.className = 'admin-login-btn'; btn.textContent = '🔐 Admin';
+btn.onclick = showAdminLogin;
+document.getElementById('navLinks').appendChild(btn);
 }
 }
 
 function showAdminLogin() {
-let pwd = prompt(currentLang === 'ar' ? "🔐 أدخل كلمة مرور المشرف:" : (currentLang === 'fr' ? "🔐 Entrez le mot de passe admin:" : "🔐 Enter admin password:"));
-if(pwd && admins.includes(pwd)) {
-currentAdmin = pwd;
-document.getElementById('adminDashboard').classList.add('show');
-renderAdminProducts();
-renderOrdersList();
-renderAdminsList();
-alert(translations[currentLang].welcomeAdmin);
-} else if(pwd) alert(translations[currentLang].invalidPassword);
-}
-
-function logoutAdmin() {
-currentAdmin = null;
-document.getElementById('adminDashboard').classList.remove('show');
+let pwd = prompt(currentLang === 'ar' ? "🔐 كلمة المرور:" : (currentLang === 'fr' ? "🔐 Mot de passe:" : "🔐 Password:"));
+if(pwd && admins.includes(pwd)) { currentAdmin = pwd; document.getElementById('adminDashboard').classList.add('show'); renderAdminProducts(); renderOrdersList(); renderAdminsList(); alert(translations[currentLang].welcomeAdmin); }
+else if(pwd) alert(translations[currentLang].invalidPassword);
 }
 
 function loadData() {
-let storedProducts = localStorage.getItem('hm_products');
-if(storedProducts) products = JSON.parse(storedProducts);
-else products = [];
-
-let storedOrders = localStorage.getItem('hm_orders');
-if(storedOrders) orders = JSON.parse(storedOrders);
-
-let storedAdmins = localStorage.getItem('hm_admins');
-if(storedAdmins) admins = JSON.parse(storedAdmins);
-if(!admins.includes("KAKA09")) admins.push("KAKA09");
-saveAdmins();
-
+let sp = localStorage.getItem('hm_products'); products = sp ? JSON.parse(sp) : [];
+let so = localStorage.getItem('hm_orders'); orders = so ? JSON.parse(so) : [];
+let sa = localStorage.getItem('hm_admins'); admins = sa ? JSON.parse(sa) : ["KAKA09"];
+if(!admins.includes("KAKA09")) admins.push("KAKA09"); saveAdmins();
 renderCustomerProducts();
 if(currentAdmin) { renderAdminProducts(); renderOrdersList(); renderAdminsList(); }
 }
 
 function renderCustomerProducts() {
-let container = document.getElementById('customerProductGrid');
-if(!container) return;
-if(products.length === 0) { container.innerHTML = `<div class="empty-message">${translations[currentLang].noProducts}</div>`; return; }
-container.innerHTML = products.map(p => {
-let sizesHtml = p.sizesArray.map(s => `<span class="size-tag">${s}</span>`).join('');
-let stockLabel = p.stockStatus === 'in' ? translations[currentLang].inStock : translations[currentLang].outStock;
-let stockClass = p.stockStatus === 'in' ? 'in-stock' : 'out-stock';
-let disabledAttr = p.stockStatus !== 'in' ? 'disabled' : '';
-let imgHtml = p.imageUrl ? `<img src="${p.imageUrl}" onerror="this.src='https://via.placeholder.com/300?text=HM+Shoe'">` : '<div style="font-size:40px;">👟</div>';
-return `
-<div class="product-card">
-<div class="product-img">${imgHtml}</div>
-<div class="product-info">
-<div class="product-name">${escapeHtml(p.name)}</div>
-<div class="product-price">${Number(p.price).toLocaleString()} DZD</div>
-<div class="sizes-badge">${sizesHtml}</div>
-<div class="stock-status ${stockClass}">${stockLabel}</div>
-<button class="buy-btn" data-id="${p.id}" ${disabledAttr}>${translations[currentLang].buyNow}</button>
-</div>
-</div>
-`;
-}).join('');
-
-document.querySelectorAll('.buy-btn').forEach(btn => {
-btn.addEventListener('click', (e) => {
-let id = parseInt(btn.getAttribute('data-id'));
-let product = products.find(p => p.id === id);
-if(product && product.stockStatus === 'in') openBuyModal(product);
-else alert(translations[currentLang].outStock);
-});
-});
+let c = document.getElementById('customerProductGrid');
+if(!c) return;
+if(products.length === 0) { c.innerHTML = `<div class="empty-message">${translations[currentLang].noProducts}</div>`; return; }
+c.innerHTML = products.map(p => `<div class="product-card"><div class="product-img">${p.imageUrl ? `<img src="${p.imageUrl}" onerror="this.src='https://via.placeholder.com/300?text=HM'">` : '<div style="font-size:40px;">👟</div>'}</div><div class="product-info"><div class="product-name">${escapeHtml(p.name)}</div><div class="product-price">${Number(p.price).toLocaleString()} DZD</div><div class="sizes-badge">${p.sizesArray.map(s=>`<span class="size-tag">${s}</span>`).join('')}</div><div class="stock-status ${p.stockStatus==='in'?'in-stock':'out-stock'}">${p.stockStatus==='in'?translations[currentLang].inStock:translations[currentLang].outStock}</div><button class="buy-btn" data-id="${p.id}" ${p.stockStatus!=='in'?'disabled':''}>${translations[currentLang].buyNow}</button></div></div>`).join('');
+document.querySelectorAll('.buy-btn').forEach(btn=>btn.addEventListener('click',e=>{let id=parseInt(btn.dataset.id),p=products.find(p=>p.id===id);if(p&&p.stockStatus==='in')openBuyModal(p);else alert(translations[currentLang].outStock);}));
 }
 
-function openBuyModal(product) {
-selectedProductForBuy = product;
-document.getElementById('modalProductInfo').innerHTML = `<strong>${product.name}</strong> — ${product.price.toLocaleString()} DZD`;
-let sizeSelect = document.getElementById('sizeSelect');
-sizeSelect.innerHTML = '<option value="">Select size</option>';
-product.sizesArray.forEach(sz => { sizeSelect.innerHTML += `<option value="${sz}">Size ${sz}</option>`; });
-document.getElementById('buyModal').style.display = 'flex';
+function openBuyModal(p){ selectedProductForBuy=p; document.getElementById('modalProductInfo').innerHTML=`<strong>${p.name}</strong> — ${p.price.toLocaleString()} DZD`; let s=document.getElementById('sizeSelect'); s.innerHTML='<option value="">Select size</option>'; p.sizesArray.forEach(sz=>{s.innerHTML+=`<option value="${sz}">Size ${sz}</option>`;}); document.getElementById('buyModal').style.display='flex'; }
+function closeBuyModal(){ document.getElementById('buyModal').style.display='none'; selectedProductForBuy=null; }
+function confirmOrder(){ if(!selectedProductForBuy) return; let n=document.getElementById('buyerFullName').value.trim(),p=document.getElementById('buyerPhone').value.trim(),a=document.getElementById('buyerAddress').value.trim(),s=document.getElementById('sizeSelect').value; if(!n||!p||!a||!s){ alert(translations[currentLang].fillFields); return; } orders.unshift({productName:selectedProductForBuy.name,size:s,price:selectedProductForBuy.price,customerName:n,phone:p,address:a,date:new Date().toLocaleString()}); saveOrders(); alert(translations[currentLang].orderPlaced); closeBuyModal(); if(currentAdmin) renderOrdersList(); }
+
+function addProductFromAdmin(){ if(!currentAdmin) return; let n=document.getElementById('prodName').value.trim(),pr=parseFloat(document.getElementById('prodPrice').value),sr=document.getElementById('prodSizes').value.trim(),img=document.getElementById('prodImage').value.trim(),st=document.getElementById('prodStock').value; if(!n){ alert(translations[currentLang].enterName); return; } if(isNaN(pr)||pr<=0){ alert(translations[currentLang].validPrice); return; } let sa=sr?sr.split(',').map(s=>s.trim()).filter(s=>s):[]; products.push({id:Date.now(),name:n,price:pr,sizesArray:sa,imageUrl:img,stockStatus:st}); saveProducts(); renderCustomerProducts(); renderAdminProducts(); document.getElementById('prodName').value=''; document.getElementById('prodPrice').value=''; document.getElementById('prodSizes').value=''; document.getElementById('prodImage').value=''; alert(translations[currentLang].productAdded); }
+
+function renderAdminProducts(){ let c=document.getElementById('adminProductsList'); if(!c) return; if(products.length===0){c.innerHTML='<p>No products.</p>';return;} c.innerHTML=products.map(p=>`<div style="border:1px solid #ddd; border-radius:20px; padding:12px; margin-bottom:10px;"><strong>${escapeHtml(p.name)}</strong> - ${p.price.toLocaleString()} DZD | Sizes: ${p.sizesArray.join(', ')} | ${p.stockStatus==='in'?'In Stock':'Out'}<div style="margin-top:8px;"><button class="toggle-stock" data-id="${p.id}">🔄 Toggle Stock</button><button class="delete-prod" data-id="${p.id}" style="background:#dc3545; color:white;">🗑 Delete</button></div></div>`).join('');
+document.querySelectorAll('.toggle-stock').forEach(b=>b.addEventListener('click',e=>{let id=parseInt(b.dataset.id);toggleStock(id);}));
+document.querySelectorAll('.delete-prod').forEach(b=>b.addEventListener('click',e=>{let id=parseInt(b.dataset.id);deleteProductById(id);}));
 }
-
-function closeBuyModal() { document.getElementById('buyModal').style.display = 'none'; selectedProductForBuy = null; }
-
-function confirmOrder() {
-if(!selectedProductForBuy) return;
-let name = document.getElementById('buyerFullName').value.trim();
-let phone = document.getElementById('buyerPhone').value.trim();
-let address = document.getElementById('buyerAddress').value.trim();
-let size = document.getElementById('sizeSelect').value;
-if(!name || !phone || !address || !size) { alert(translations[currentLang].fillFields); return; }
-let newOrder = {
-productName: selectedProductForBuy.name,
-size: size,
-price: selectedProductForBuy.price,
-customerName: name,
-phone: phone,
-address: address,
-date: new Date().toLocaleString()
-};
-orders.unshift(newOrder);
-saveOrders();
-alert(translations[currentLang].orderPlaced);
-closeBuyModal();
-if(currentAdmin) renderOrdersList();
+function toggleStock(id){ let p=products.find(p=>p.id===id); if(p){ p.stockStatus=p.stockStatus==='in'?'out':'in'; saveProducts(); renderCustomerProducts(); if(currentAdmin) renderAdminProducts(); } }
+function deleteProductById(id){ if(confirm(translations[currentLang].deleteConfirm)){ products=products.filter(p=>p.id!==id); saveProducts(); renderCustomerProducts(); if(currentAdmin) renderAdminProducts(); } }
+function renderOrdersList(){ let c=document.getElementById('ordersList'); if(!c) return; if(orders.length===0){c.innerHTML=`<p>${translations[currentLang].noOrders}</p>`;return;} c.innerHTML=orders.map((o,i)=>`<div style="border-left:4px solid #ff9800; background:#fafafa; margin:10px 0; padding:12px; border-radius:16px;"><strong>${o.productName}</strong> | Size: ${o.size} | ${o.price.toLocaleString()} DZD<br>👤 ${o.customerName} | 📞 ${o.phone}<br>📍 ${o.address}<br>📅 ${o.date}<br><button class="del-order" data-index="${i}" style="background:#dc3545; color:white; margin-top:6px;">Delete Order</button></div>`).join('');
+document.querySelectorAll('.del-order').forEach(b=>b.addEventListener('click',e=>{let idx=parseInt(b.dataset.index); orders.splice(idx,1); saveOrders(); renderOrdersList();}));
 }
-
-function addProductFromAdmin() {
-if(!currentAdmin) return;
-let name = document.getElementById('prodName').value.trim();
-let price = parseFloat(document.getElementById('prodPrice').value);
-let sizesRaw = document.getElementById('prodSizes').value.trim();
-let imageUrl = document.getElementById('prodImage').value.trim();
-let stock = document.getElementById('prodStock').value;
-if(!name) { alert(translations[currentLang].enterName); return; }
-if(isNaN(price) || price <=0) { alert(translations[currentLang].validPrice); return; }
-let sizesArr = sizesRaw ? sizesRaw.split(',').map(s=>s.trim()).filter(s=>s) : [];
-let newProd = { id: Date.now(), name, price, sizesArray: sizesArr, imageUrl, stockStatus: stock };
-products.push(newProd);
-saveProducts();
-renderCustomerProducts();
-renderAdminProducts();
-document.getElementById('prodName').value = '';
-document.getElementById('prodPrice').value = '';
-document.getElementById('prodSizes').value = '';
-document.getElementById('prodImage').value = '';
-alert(translations[currentLang].productAdded);
+function renderAdminsList(){ let c=document.getElementById('adminsList'); if(!c) return; if(admins.length===0){c.innerHTML=`<p>${translations[currentLang].noAdmins}</p>`;return;} c.innerHTML=admins.map((a,idx)=>`<div style="display:flex; justify-content:space-between; background:#f4f4f4; margin:6px 0; padding:8px; border-radius:30px;"><span>🔑 ${a}</span> ${idx!==0?`<button class="remove-admin" data-pass="${a}" style="background:#dc3545; color:white; border:none; padding:4px 12px; border-radius:20px;">Remove</button>`:'<span style="color:#ff9800;">Master</span>'}</div>`).join('');
+document.querySelectorAll('.remove-admin').forEach(b=>b.addEventListener('click',e=>{let pass=b.dataset.pass; if(confirm(`${translations[currentLang].removeAdminConfirm} "${pass}"?`)){ admins=admins.filter(a=>a!==pass); saveAdmins(); if(currentAdmin&&!admins.includes(currentAdmin)) logoutAdmin(); renderAdminsList(); }}));
 }
+function addNewAdmin(){ let np=document.getElementById('newAdminPass').value.trim(); if(!np) return; if(admins.includes(np)){ alert(translations[currentLang].alreadyExists); return; } admins.push(np); saveAdmins(); renderAdminsList(); document.getElementById('newAdminPass').value=''; }
+function logoutAdmin(){ currentAdmin=null; document.getElementById('adminDashboard').classList.remove('show'); }
+function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>]/g,function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;}); }
 
-function renderAdminProducts() {
-let container = document.getElementById('adminProductsList');
-if(!container) return;
-if(products.length === 0) { container.innerHTML = '<p>No products added yet.</p>'; return; }
-container.innerHTML = products.map(p => `
-<div style="border:1px solid #ddd; border-radius:20px; padding:12px; margin-bottom:10px;">
-<strong>${escapeHtml(p.name)}</strong> - ${p.price.toLocaleString()} DZD | Sizes: ${p.sizesArray.join(', ')} | ${p.stockStatus === 'in' ? 'In Stock' : 'Out'}
-<div style="margin-top:8px;">
-<button class="toggle-stock" data-id="${p.id}">🔄 Toggle Stock</button>
-<button class="delete-prod" data-id="${p.id}" style="background:#dc3545; color:white;">🗑 Delete</button>
-</div>
-</div>
-`).join('');
-
-document.querySelectorAll('.toggle-stock').forEach(btn => {
-btn.addEventListener('click', (e) => { let id = parseInt(btn.dataset.id); toggleStock(id); });
-});
-document.querySelectorAll('.delete-prod').forEach(btn => {
-btn.addEventListener('click', (e) => { let id = parseInt(btn.dataset.id); deleteProductById(id); });
-});
-}
-
-function toggleStock(id) {
-let prod = products.find(p=>p.id===id);
-if(prod) {
-prod.stockStatus = prod.stockStatus==='in'?'out':'in';
-saveProducts();
-renderCustomerProducts();
-if(currentAdmin) renderAdminProducts();
-}
-}
-
-function deleteProductById(id) {
-if(confirm(translations[currentLang].deleteConfirm)) {
-products = products.filter(p=>p.id!==id);
-saveProducts();
-renderCustomerProducts();
-if(currentAdmin) renderAdminProducts();
-}
-}
-
-function renderOrdersList() {
-let container = document.getElementById('ordersList');
-if(!container) return;
-if(orders.length===0) { container.innerHTML = `<p>${translations[currentLang].noOrders}</p>`; return; }
-container.innerHTML = orders.map((o,i)=>`
-<div style="border-left:4px solid #ff9800; background:#fafafa; margin:10px 0; padding:12px; border-radius:16px;">
-<strong>${o.productName}</strong> | Size: ${o.size} | ${o.price.toLocaleString()} DZD<br>
-👤 ${o.customerName} | 📞 ${o.phone}<br>
-📍 ${o.address}<br>📅 ${o.date}<br>
-<button class="del-order" data-index="${i}" style="background:#dc3545; color:white; margin-top:6px;">Delete Order</button>
-</div>
-`).join('');
-
-document.querySelectorAll('.del-order').forEach(btn=>{
-btn.addEventListener('click',(e)=>{
-let idx=parseInt(btn.dataset.index);
-orders.splice(idx,1);
-saveOrders();
-renderOrdersList();
-});
-});
-}
-
-function renderAdminsList() {
-let container = document.getElementById('adminsList');
-if(!container) return;
-if(admins.length===0) { container.innerHTML = `<p>${translations[currentLang].noAdmins}</p>`; return; }
-container.innerHTML = admins.map((a,idx)=>`
-<div style="display:flex; justify-content:space-between; background:#f4f4f4; margin:6px 0; padding:8px; border-radius:30px;">
-<span>🔑 ${a}</span>
-${idx!==0 ? `<button class="remove-admin" data-pass="${a}" style="background:#dc3545; color:white; border:none; padding:4px 12px; border-radius:20px;">Remove</button>` : '<span style="color:#ff9800;">Master</span>'}
-</div>
-`).join('');
-
-document.querySelectorAll('.remove-admin').forEach(btn=>{
-btn.addEventListener('click',(e)=>{
-let pass = btn.dataset.pass;
-if(confirm(`${translations[currentLang].removeAdminConfirm} "${pass}"?`)){
-admins = admins.filter(a=>a!==pass);
-saveAdmins();
-if(currentAdmin && !admins.includes(currentAdmin)) logoutAdmin();
-renderAdminsList();
-}
-});
-});
-}
-
-function addNewAdmin() {
-let newPass = document.getElementById('newAdminPass').value.trim();
-if(!newPass) return;
-if(admins.includes(newPass)) { alert(translations[currentLang].alreadyExists); return; }
-admins.push(newPass);
-saveAdmins();
-renderAdminsList();
-document.getElementById('newAdminPass').value = '';
-}
-
-function escapeHtml(str) {
-if(!str) return '';
-return str.replace(/[&<>]/g, function(m){
-if(m==='&') return '&amp;';
-if(m==='<') return '&lt;';
-if(m==='>') return '&gt;';
-return m;
-});
-}
-
-// أزرار التنقل
 document.getElementById('homeBtn').onclick = showHome;
 document.getElementById('contactNavBtn').onclick = showContact;
 document.getElementById('addProductBtn').onclick = addProductFromAdmin;
 document.getElementById('addAdminBtn').onclick = addNewAdmin;
 document.getElementById('confirmOrderBtn').onclick = confirmOrder;
 document.getElementById('closeModalBtn').onclick = closeBuyModal;
-window.onclick = function(e) { if(e.target === document.getElementById('buyModal')) closeBuyModal(); };
-
-document.querySelectorAll('.tab-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-let tabId = btn.getAttribute('data-tab');
-document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-document.getElementById(tabId).classList.add('active');
-document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-btn.classList.add('active');
-});
-});
+window.onclick = e => { if(e.target === document.getElementById('buyModal')) closeBuyModal(); };
+document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{let tid=b.dataset.tab; document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById(tid).classList.add('active'); document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active')); b.classList.add('active');}));
 
 checkSecretAndShowAdminButton();
 loadData();
