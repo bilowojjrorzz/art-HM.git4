@@ -18,8 +18,8 @@ overflow-x: hidden;
 }
 
 .hero-section {
-background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
-url('https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
+url('https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1600');
 background-size: cover;
 background-position: center 30%;
 background-attachment: fixed;
@@ -145,7 +145,25 @@ margin: 2rem 0 1rem;
 .welcome-box h2 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
 .welcome-box p { font-size: 1rem; margin-top: 0.5rem; opacity: 0.9; }
 
-/* لوحة التحكم */
+/* زر Our Products الجديد */
+.hero-btn {
+background: linear-gradient(135deg, #ff9800, #f57c00);
+border: none;
+padding: 12px 32px;
+border-radius: 50px;
+color: white;
+font-weight: bold;
+font-size: 1.1rem;
+cursor: pointer;
+transition: 0.3s;
+margin-top: 20px;
+box-shadow: 0 4px 15px rgba(255,152,0,0.3);
+}
+.hero-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 25px rgba(255,152,0,0.4);
+}
+
 .admin-dashboard {
 background: white;
 margin: 2rem 1.5rem;
@@ -329,13 +347,12 @@ font-size: 0.9rem;
 }
 .empty-message { text-align: center; padding: 3rem; color: #6c757d; }
 
-/* ========== تحسينات الجوال (الخيار 3 الاحترافي) ========== */
+/* ========== تحسينات للهاتف ========== */
 @media (max-width: 768px) {
-/* تحسينات عامة */
 body {
 font-size: 14px;
 }
-/* القائمة العلوية */
+
 .navbar {
 flex-direction: row;
 justify-content: space-between;
@@ -373,7 +390,7 @@ text-align: center;
 padding: 12px;
 font-size: 1rem;
 }
-/* زر اللغة في الجوال */
+
 .language-dropdown {
 width: 100%;
 }
@@ -391,80 +408,38 @@ background: rgba(255,255,255,0.15) !important;
 color: white !important;
 }
 
-.lang-dropdown-content button:hover {
-background: #ff9800 !important;
-}
-
 .language-dropdown:hover .lang-dropdown-content {
 display: none;
 }
 
-/* عرض المنتجات */
 .product-grid {
 grid-template-columns: 1fr;
 gap: 1.2rem;
-}
-
-.product-card {
-margin: 0;
 }
 
 .product-img {
 height: 200px;
 }
 
-.product-name {
-font-size: 1.1rem;
-}
-
-.product-price {
-font-size: 1.3rem;
-}
-
-/* الترحيب */
 .welcome-box h2 {
 font-size: 1.4rem;
-}
-
-.welcome-box p {
-font-size: 0.85rem;
 }
 
 .section-title {
 font-size: 1.5rem;
 }
-/* لوحة التحكم */
+
 .admin-dashboard {
 margin: 1rem;
 padding: 1.2rem;
 }
 
-.admin-tabs {
-gap: 0.5rem;
-}
-
-.tab-btn {
-padding: 0.5rem 1rem;
-font-size: 0.8rem;
-}
-
 .form-row {
 flex-direction: column;
-gap: 0.8rem;
 }
 
-.form-group {
-min-width: 100%;
-}
-
-.form-group input, .form-group select {
-padding: 10px;
-}
-
-/* صفحة الاتصال */
 .contact-section {
 margin: 1rem;
-padding: 1.5rem;
 }
 
 .contact-grid {
@@ -472,43 +447,12 @@ flex-direction: column;
 gap: 1rem;
 }
 
-.contact-card {
-margin: 0;
-padding: 1rem;
-}
-/* النافذة المنبثقة */
-.modal-content {
-width: 92%;
-padding: 1.2rem;
-margin: 1rem;
-}
-
-.modal-content input, .modal-content select {
-padding: 10px;
-}
-
-/* أزرار عامة */
-button {
-padding: 10px 20px;
-font-size: 0.85rem;
-}
-
-/* تحسينات المسافات */
-.hero-section {
-padding: 1rem 1rem 3rem 1rem;
-}
-
-.products-section {
-padding: 1.5rem 1rem;
-}
-
-footer {
-padding: 1rem;
-font-size: 0.7rem;
+.hero-btn {
+padding: 10px 24px;
+font-size: 1rem;
 }
 }
 
-/* تحسينات للشاشات الصغيرة جداً */
 @media (max-width: 480px) {
 .logo h1 {
 font-size: 1.3rem;
@@ -521,26 +465,6 @@ height: 45px;
 
 .welcome-box h2 {
 font-size: 1.2rem;
-}
-
-.product-price {
-font-size: 1.2rem;
-}
-
-.buy-btn {
-padding: 10px;
-}
-}
-
-/* تحسينات للشاشات الكبيرة */
-@media (min-width: 1200px) {
-.container {
-max-width: 1200px;
-margin: 0 auto;
-}
-
-.product-grid {
-grid-template-columns: repeat(3, 1fr);
 }
 }
 </style>
@@ -556,11 +480,11 @@ style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 </div>
 <div class="menu-icon" onclick="toggleMobileMenu()">☰</div>
 <div class="nav-links" id="navLinks">
+<!-- زر Home قابل للضغط -->
 <button id="homeBtn">🏠 Home</button>
-<button id="productsNavBtn">👟 Our Products</button>
 <button id="contactNavBtn">📞 Contact</button>
 
-<!-- زر اللغة الجديد - قائمة منسدلة -->
+<!-- زر اللغة -->
 <div class="language-dropdown">
 <button class="lang-main-btn">🌐 Language</button>
 <div class="lang-dropdown-content">
@@ -576,6 +500,8 @@ style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 <h2 id="welcomeTitle">Welcome to HM STORE</h2>
 <p id="welcomeSub">⭐ Premium footwear for champions | Best quality & comfort ⭐</p>
 <p id="welcomeDesc" style="margin-top: 12px;">🔥 Discover the latest collection 🔥</p>
+<!-- زر Our Products الجديد -->
+<button class="hero-btn" onclick="showProductsSection()">👟 Our Products</button>
 </div>
 </div>
 
@@ -615,11 +541,13 @@ style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 </div>
 </div>
 
+<!-- صفحة المنتجات -->
 <div id="productsCustomerSection" class="products-section">
 <div class="section-title" id="collectionTitle">👟 Our Collection</div>
 <div id="customerProductGrid" class="product-grid"></div>
 </div>
 
+<!-- صفحة الاتصال -->
 <div id="contactPage" style="display: none;">
 <div class="contact-section">
 <h2 id="contactTitle">📞 Contact HM STORE</h2>
@@ -656,6 +584,27 @@ const navLinks = document.getElementById('navLinks');
 navLinks.classList.toggle('show');
 }
 
+// دالة لإظهار صفحة المنتجات
+function showProductsSection() {
+document.getElementById('productsCustomerSection').style.display = 'block';
+document.getElementById('contactPage').style.display = 'none';
+document.getElementById('navLinks').classList.remove('show');
+}
+
+// دالة لإظهار الصفحة الرئيسية
+function showHome() {
+document.getElementById('productsCustomerSection').style.display = 'block';
+document.getElementById('contactPage').style.display = 'none';
+document.getElementById('navLinks').classList.remove('show');
+}
+
+// دالة لإظهار صفحة الاتصال
+function showContact() {
+document.getElementById('productsCustomerSection').style.display = 'none';
+document.getElementById('contactPage').style.display = 'block';
+document.getElementById('navLinks').classList.remove('show');
+}
+
 // إغلاق القائمة عند الضغط على أي زر
 document.querySelectorAll('#navLinks button').forEach(btn => {
 btn.addEventListener('click', () => {
@@ -667,7 +616,6 @@ document.getElementById('navLinks').classList.remove('show');
 const translations = {
 en: {
 home: "🏠 Home",
-products: "👟 Our Products",
 contact: "📞 Contact",
 welcomeTitle: "Welcome to HM STORE",
 welcomeSub: "⭐ Premium footwear for champions | Best quality & comfort ⭐",
@@ -714,7 +662,6 @@ loggedOut: "Logged out!"
 },
 fr: {
 home: "🏠 Accueil",
-products: "👟 Nos Produits",
 contact: "📞 Contact",
 welcomeTitle: "Bienvenue chez HM STORE",
 welcomeSub: "⭐ Chaussures premium pour champions | Meilleure qualité et confort ⭐",
@@ -761,7 +708,6 @@ loggedOut: "Déconnecté !"
 },
 ar: {
 home: "🏠 الرئيسية",
-products: "👟 منتجاتنا",
 contact: "📞 اتصل بنا",
 welcomeTitle: "مرحباً بكم في HM STORE",
 welcomeSub: "⭐ أحذية فاخرة للأبطال | أفضل جودة وراحة ⭐",
@@ -816,7 +762,6 @@ const t = translations[lang];
 
 // تحديث النصوص
 document.getElementById('homeBtn').innerHTML = t.home;
-document.getElementById('productsNavBtn').innerHTML = t.products;
 document.getElementById('contactNavBtn').innerHTML = t.contact;
 document.getElementById('welcomeTitle').innerHTML = t.welcomeTitle;
 document.getElementById('welcomeSub').innerHTML = t.welcomeSub;
@@ -847,10 +792,8 @@ if (document.getElementById('orderTitle')) document.getElementById('orderTitle')
 // تغيير اتجاه الصفحة للعربية
 if (lang === 'ar') {
 document.body.style.direction = 'rtl';
-document.querySelector('.navbar').style.flexDirection = 'row';
 } else {
 document.body.style.direction = 'ltr';
-document.querySelector('.navbar').style.flexDirection = 'row';
 }
 
 renderCustomerProducts();
@@ -1106,19 +1049,6 @@ renderAdminsList();
 document.getElementById('newAdminPass').value = '';
 }
 
-function showHome() {
-document.getElementById('productsCustomerSection').style.display = 'block';
-document.getElementById('contactPage').style.display = 'none';
-}
-function showProductsCustomer() {
-document.getElementById('productsCustomerSection').style.display = 'block';
-document.getElementById('contactPage').style.display = 'none';
-}
-function showContact() {
-document.getElementById('productsCustomerSection').style.display = 'none';
-document.getElementById('contactPage').style.display = 'block';
-}
-
 function escapeHtml(str) {
 if(!str) return '';
 return str.replace(/[&<>]/g, function(m){
@@ -1129,9 +1059,9 @@ return m;
 });
 }
 
-document.getElementById('homeBtn').onclick = () => { showHome(); document.getElementById('navLinks').classList.remove('show'); };
-document.getElementById('productsNavBtn').onclick = () => { showProductsCustomer(); document.getElementById('navLinks').classList.remove('show'); };
-document.getElementById('contactNavBtn').onclick = () => { showContact(); document.getElementById('navLinks').classList.remove('show'); };
+// أزرار التنقل
+document.getElementById('homeBtn').onclick = showHome;
+document.getElementById('contactNavBtn').onclick = showContact;
 document.getElementById('addProductBtn').onclick = addProductFromAdmin;
 document.getElementById('addAdminBtn').onclick = addNewAdmin;
 document.getElementById('confirmOrderBtn').onclick = confirmOrder;
