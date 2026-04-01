@@ -57,6 +57,7 @@ display: flex;
 gap: 1rem;
 flex-wrap: wrap;
 align-items: center;
+position: relative;
 }
 .nav-links button {
 background: rgba(255,255,255,0.15);
@@ -75,19 +76,42 @@ background: #ff9800;
 transform: translateY(-2px);
 }
 
-/* أزرار اللغة */
-.lang-buttons {
-display: flex;
-gap: 0.5rem;
-margin-left: 0.5rem;
+/* زر اللغة والقائمة المنسدلة */
+.language-dropdown {
+position: relative;
+display: inline-block;
 }
-.lang-btn {
-background: rgba(0,0,0,0.5) !important;
-padding: 0.4rem 0.8rem !important;
-font-size: 0.8rem !important;
+.lang-main-btn {
+background: rgba(0,0,0,0.6) !important;
+padding: 0.6rem 1.2rem !important;
 }
-.lang-btn:hover {
+.lang-dropdown-content {
+display: none;
+position: absolute;
+top: 100%;
+right: 0;
+background: white;
+min-width: 120px;
+border-radius: 16px;
+box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+z-index: 100;
+overflow: hidden;
+}
+.lang-dropdown-content button {
+background: white !important;
+color: #333 !important;
+text-align: center;
+width: 100%;
+padding: 10px 15px !important;
+border-radius: 0 !important;
+font-size: 0.9rem !important;
+}
+.lang-dropdown-content button:hover {
 background: #ff9800 !important;
+color: white !important;
+}
+.language-dropdown:hover .lang-dropdown-content {
+display: block;
 }
 
 .admin-login-btn {
@@ -280,11 +304,17 @@ style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
 <button id="homeBtn">🏠 Home</button>
 <button id="productsNavBtn">👟 Our Products</button>
 <button id="contactNavBtn">📞 Contact</button>
-<div class="lang-buttons">
-<button class="lang-btn" onclick="setLanguage('en')">🇬🇧 EN</button>
-<button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 FR</button>
-<button class="lang-btn" onclick="setLanguage('ar')">🇸🇦 AR</button>
+
+<!-- زر اللغة الجديد - قائمة منسدلة -->
+<div class="language-dropdown">
+<button class="lang-main-btn">🌐 Language</button>
+<div class="lang-dropdown-content">
+<button onclick="setLanguage('en')">🇬🇧 English</button>
+<button onclick="setLanguage('fr')">🇫🇷 Français</button>
+<button onclick="setLanguage('ar')">🇸🇦 العربية</button>
 </div>
+</div>
+
 </div>
 </div>
 <div class="welcome-box">
@@ -515,14 +545,15 @@ let currentLang = 'en';
 function setLanguage(lang) {
 currentLang = lang;
 const t = translations[lang];
-// تحديث النصوص في الصفحة
+
+// تحديث النصوص
 document.getElementById('homeBtn').innerHTML = t.home;
 document.getElementById('productsNavBtn').innerHTML = t.products;
 document.getElementById('contactNavBtn').innerHTML = t.contact;
 document.getElementById('welcomeTitle').innerHTML = t.welcomeTitle;
 document.getElementById('welcomeSub').innerHTML = t.welcomeSub;
 document.getElementById('welcomeDesc').innerHTML = t.welcomeDesc;
-// تحديث لوحة التحكم
+
 if (document.getElementById('tabProducts')) document.getElementById('tabProducts').innerHTML = t.tabProducts;
 if (document.getElementById('tabOrders')) document.getElementById('tabOrders').innerHTML = t.tabOrders;
 if (document.getElementById('tabAdmins')) document.getElementById('tabAdmins').innerHTML = t.tabAdmins;
@@ -553,6 +584,8 @@ document.querySelector('.navbar').style.flexDirection = 'row-reverse';
 document.body.style.direction = 'ltr';
 document.querySelector('.navbar').style.flexDirection = 'row';
 }
+// إعادة تحميل المنتجات لتحديث أزرار الشراء
+renderCustomerProducts();
 }
 
 // ========== باقي الكود الأصلي ==========
@@ -584,7 +617,7 @@ navLinks.appendChild(adminBtn);
 }
 
 function showAdminLogin() {
-let pwd = prompt(translations[currentLang].invalidPassword === "Invalid password" ? "🔐 Enter admin password:" : (currentLang === 'ar' ? "🔐 أدخل كلمة مرور المشرف:" : "🔐 Entrez le mot de passe admin:"));
+let pwd = prompt(currentLang === 'ar' ? "🔐 أدخل كلمة مرور المشرف:" : (currentLang === 'fr' ? "🔐 Entrez le mot de passe admin:" : "🔐 Enter admin password:"));
 if(pwd && admins.includes(pwd)) {
 currentAdmin = pwd;
 document.getElementById('adminDashboard').classList.add('show');
