@@ -231,7 +231,7 @@ margin-top: 10px;
 }
 .image-preview {
 width: 100%;
-height: 120px;
+height: 100px;
 background: #f0f2f5;
 border-radius: 16px;
 margin-top: 10px;
@@ -275,9 +275,14 @@ transform: translateY(-2px);
 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+/* قسم المنتجات - مخفي في البداية */
 .products-section {
 padding: 2rem 1.5rem;
 background: #f8f9fc;
+display: none;
+}
+.products-section.show {
+display: block;
 }
 .section-title {
 font-size: 1.8rem;
@@ -461,7 +466,7 @@ color: white !important;
 <h2 id="welcomeTitle">Welcome to HM STORE</h2>
 <p id="welcomeSub">⭐ Premium footwear for champions | Best quality & comfort ⭐</p>
 <p id="welcomeDesc" style="margin-top: 12px;">🔥 Discover the latest collection 🔥</p>
-<button class="hero-btn" onclick="showProductsSection()">👟 Our Products</button>
+<button class="hero-btn" onclick="showProductsPage()">👟 Our Products</button>
 </div>
 </div>
 
@@ -508,7 +513,8 @@ color: white !important;
 </div>
 </div>
 
-<div id="productsCustomerSection" class="products-section">
+<!-- صفحة المنتجات - تظهر فقط عند الضغط على زر Our Products -->
+<div id="productsPage" class="products-section">
 <div class="section-title" id="collectionTitle">👟 Our Collection</div>
 <div id="customerProductGrid" class="product-grid"></div>
 </div>
@@ -581,18 +587,21 @@ event.stopPropagation();
 });
 
 // دوال التنقل
-function showProductsSection() {
-document.getElementById('productsCustomerSection').style.display = 'block';
+function showHomePage() {
+document.getElementById('productsPage').classList.remove('show');
 document.getElementById('contactPage').style.display = 'none';
 document.getElementById('navLinks').classList.remove('show');
 }
-function showHome() {
-document.getElementById('productsCustomerSection').style.display = 'block';
+
+function showProductsPage() {
+document.getElementById('productsPage').classList.add('show');
 document.getElementById('contactPage').style.display = 'none';
 document.getElementById('navLinks').classList.remove('show');
+renderCustomerProducts();
 }
-function showContact() {
-document.getElementById('productsCustomerSection').style.display = 'none';
+
+function showContactPage() {
+document.getElementById('productsPage').classList.remove('show');
 document.getElementById('contactPage').style.display = 'block';
 document.getElementById('navLinks').classList.remove('show');
 }
@@ -741,8 +750,8 @@ function addNewAdmin(){ let np=document.getElementById('newAdminPass').value.tri
 function logoutAdmin(){ currentAdmin=null; document.getElementById('adminDashboard').classList.remove('show'); }
 function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>]/g,function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;}); }
 
-document.getElementById('homeBtn').onclick = showHome;
-document.getElementById('contactNavBtn').onclick = showContact;
+document.getElementById('homeBtn').onclick = showHomePage;
+document.getElementById('contactNavBtn').onclick = showContactPage;
 document.getElementById('addProductBtn').onclick = addProductFromAdmin;
 document.getElementById('addAdminBtn').onclick = addNewAdmin;
 document.getElementById('confirmOrderBtn').onclick = confirmOrder;
@@ -752,7 +761,7 @@ document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>
 
 checkSecretAndShowAdminButton();
 loadData();
-showHome();
+showHomePage();
 setLanguage('en');
 </script>
 </body>
