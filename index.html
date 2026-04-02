@@ -224,6 +224,42 @@ outline: none;
 border-color: #ff9800;
 box-shadow: 0 0 0 3px rgba(255,152,0,0.1);
 }
+
+/* حقل رفع الصورة */
+.image-upload-area {
+margin-top: 10px;
+}
+.image-preview {
+width: 100%;
+height: 120px;
+background: #f0f2f5;
+border-radius: 16px;
+margin-top: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+border: 2px dashed #ddd;
+}
+.image-preview img {
+max-width: 100%;
+max-height: 100%;
+object-fit: contain;
+}
+.upload-btn {
+background: #28a745;
+color: white;
+border: none;
+padding: 8px 16px;
+border-radius: 40px;
+cursor: pointer;
+font-size: 0.8rem;
+margin-top: 8px;
+}
+.upload-btn:hover {
+background: #218838;
+}
+
 button {
 background: #ff9800;
 border: none;
@@ -441,7 +477,15 @@ color: white !important;
 <div class="form-group"><label id="labelName">Model Name</label><input type="text" id="prodName" placeholder="e.g. HM Racer Pro"></div>
 <div class="form-group"><label id="labelPrice">Price (DZD)</label><input type="number" id="prodPrice" placeholder="8500"></div>
 <div class="form-group"><label id="labelSizes">Sizes (ex: 39,40,41)</label><input type="text" id="prodSizes" placeholder="39,40,41,42"></div>
-<div class="form-group"><label id="labelImage">Image URL</label><input type="text" id="prodImage" placeholder="https://..."></div>
+<div class="form-group">
+<label id="labelImage">Product Image</label>
+<div class="image-upload-area">
+<input type="file" id="prodImageFile" accept="image/*" style="display:none;">
+<button type="button" class="upload-btn" onclick="document.getElementById('prodImageFile').click()">📸 Choose Image from Album</button>
+<div class="image-preview" id="imagePreview"></div>
+<input type="hidden" id="prodImage" placeholder="https://...">
+</div>
+</div>
 <div class="form-group"><label id="labelStock">Stock</label><select id="prodStock"><option value="in">✅ In Stock</option><option value="out">❌ Out of Stock</option></select></div>
 </div>
 <button id="addProductBtn">+ Add Product</button>
@@ -499,6 +543,23 @@ color: white !important;
 </div>
 
 <script>
+// دالة رفع الصورة وتحويلها إلى base64
+let uploadedImageData = null;
+
+document.getElementById('prodImageFile').addEventListener('change', function(e) {
+const file = e.target.files[0];
+if (file) {
+const reader = new FileReader();
+reader.onload = function(event) {
+uploadedImageData = event.target.result;
+const preview = document.getElementById('imagePreview');
+preview.innerHTML = `<img src="${uploadedImageData}" style="max-width:100%; max-height:100%; object-fit:contain;">`;
+document.getElementById('prodImage').value = uploadedImageData;
+};
+reader.readAsDataURL(file);
+}
+});
+
 // دالة لفتح وإغلاق القائمة (الثلاث نقاط)
 function toggleMobileMenu(event) {
 event.stopPropagation();
@@ -510,13 +571,11 @@ navLinks.classList.toggle('show');
 document.addEventListener('click', function(event) {
 const navLinks = document.getElementById('navLinks');
 const menuIcon = document.querySelector('.menu-icon');
-// إذا كانت القائمة مفتوحة والضغط ليس على القائمة ولا على زر القائمة
 if (navLinks.classList.contains('show') && !navLinks.contains(event.target) && !menuIcon.contains(event.target)) {
 navLinks.classList.remove('show');
 }
 });
 
-// منع إغلاق القائمة عند الضغط داخل القائمة نفسها
 document.getElementById('navLinks').addEventListener('click', function(event) {
 event.stopPropagation();
 });
@@ -540,9 +599,9 @@ document.getElementById('navLinks').classList.remove('show');
 
 // ========== إعدادات اللغة ==========
 const translations = {
-en: { home: "🏠 Home", contact: "📞 Contact", welcomeTitle: "Welcome to HM STORE", welcomeSub: "⭐ Premium footwear for champions | Best quality & comfort ⭐", welcomeDesc: "🔥 Discover the latest collection 🔥", tabProducts: "➕ Manage Products", tabOrders: "📦 Orders", tabAdmins: "👥 Admins", addProductTitle: "Add New Shoe", labelName: "Model Name", labelPrice: "Price (DZD)", labelSizes: "Sizes (ex: 39,40,41)", labelImage: "Image URL", labelStock: "Stock", addProductBtn: "+ Add Product", existingTitle: "Existing Products", ordersTitle: "Customer Orders", addAdminTitle: "Add New Admin", labelAdminPass: "Admin Password", currentAdminsTitle: "Current Admins", collectionTitle: "👟 Our Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Phone", contactLocation: "📍 Location", contactHours: "⏰ Hours", footerText: "© 2025 HM STORE — Premium Footwear | Secure Shopping", orderTitle: "🛒 Complete Order", buyNow: "🛒 Buy Now", inStock: "✅ In Stock", outStock: "❌ Out of Stock", noProducts: "✨ No products yet. Admin will add them soon ✨", noOrders: "No orders yet.", noAdmins: "No admins yet.", fillFields: "Please fill all fields", orderPlaced: "✅ Order placed! We'll contact you soon.", enterName: "Enter product name", validPrice: "Valid price needed", productAdded: "Product added!", deleteConfirm: "Delete this shoe?", removeAdminConfirm: "Remove admin", alreadyExists: "Already exists", invalidPassword: "Invalid password", welcomeAdmin: "Welcome Admin!" },
-fr: { home: "🏠 Accueil", contact: "📞 Contact", welcomeTitle: "Bienvenue chez HM STORE", welcomeSub: "⭐ Chaussures premium pour champions | Meilleure qualité et confort ⭐", welcomeDesc: "🔥 Découvrez la dernière collection 🔥", tabProducts: "➕ Gérer les Produits", tabOrders: "📦 Commandes", tabAdmins: "👥 Admins", addProductTitle: "Ajouter une Chaussure", labelName: "Nom du Modèle", labelPrice: "Prix (DZD)", labelSizes: "Tailles (ex: 39,40,41)", labelImage: "URL de l'image", labelStock: "Stock", addProductBtn: "+ Ajouter", existingTitle: "Produits Existants", ordersTitle: "Commandes Clients", addAdminTitle: "Ajouter un Admin", labelAdminPass: "Mot de passe Admin", currentAdminsTitle: "Admins Actuels", collectionTitle: "👟 Notre Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Téléphone", contactLocation: "📍 Adresse", contactHours: "⏰ Horaires", footerText: "© 2025 HM STORE — Chaussures Premium | Achat Sécurisé", orderTitle: "🛒 Finaliser la Commande", buyNow: "🛒 Acheter", inStock: "✅ En Stock", outStock: "❌ Rupture", noProducts: "✨ Aucun produit pour le moment. ✨", noOrders: "Aucune commande.", noAdmins: "Aucun administrateur.", fillFields: "Veuillez remplir tous les champs", orderPlaced: "✅ Commande passée !", enterName: "Entrez le nom", validPrice: "Prix valide requis", productAdded: "Produit ajouté !", deleteConfirm: "Supprimer ?", removeAdminConfirm: "Supprimer admin", alreadyExists: "Existe déjà", invalidPassword: "Mot de passe invalide", welcomeAdmin: "Bienvenue Admin !" },
-ar: { home: "🏠 الرئيسية", contact: "📞 اتصل بنا", welcomeTitle: "مرحباً بكم في HM STORE", welcomeSub: "⭐ أحذية فاخرة للأبطال | أفضل جودة وراحة ⭐", welcomeDesc: "🔥 اكتشف أحدث المجموعات 🔥", tabProducts: "➕ إدارة المنتجات", tabOrders: "📦 الطلبات", tabAdmins: "👥 المشرفون", addProductTitle: "إضافة حذاء جديد", labelName: "اسم الموديل", labelPrice: "السعر (دج)", labelSizes: "المقاسات (مثال: 39,40,41)", labelImage: "رابط الصورة", labelStock: "المخزون", addProductBtn: "+ إضافة منتج", existingTitle: "المنتجات الموجودة", ordersTitle: "طلبات العملاء", addAdminTitle: "إضافة مشرف جديد", labelAdminPass: "كلمة مرور المشرف", currentAdminsTitle: "المشرفون الحاليون", collectionTitle: "👟 مجموعتنا", contactTitle: "📞 اتصل بـ HM STORE", contactPhone: "📱 الهاتف", contactLocation: "📍 الموقع", contactHours: "⏰ ساعات العمل", footerText: "© 2025 HM STORE — أحذية فاخرة | تسوق آمن", orderTitle: "🛒 إتمام الطلب", buyNow: "🛒 شراء الآن", inStock: "✅ متوفر", outStock: "❌ نفدت الكمية", noProducts: "✨ لا توجد منتجات حالياً ✨", noOrders: "لا توجد طلبات", noAdmins: "لا يوجد مشرفون", fillFields: "الرجاء ملء جميع الحقول", orderPlaced: "✅ تم تقديم الطلب!", enterName: "الرجاء إدخال اسم المنتج", validPrice: "الرجاء إدخال سعر صحيح", productAdded: "تم إضافة المنتج!", deleteConfirm: "هل تريد حذف هذا الحذاء؟", removeAdminConfirm: "حذف المشرف", alreadyExists: "كلمة المرور موجودة مسبقاً", invalidPassword: "كلمة مرور خاطئة", welcomeAdmin: "مرحباً بك في لوحة التحكم!" }
+en: { home: "🏠 Home", contact: "📞 Contact", welcomeTitle: "Welcome to HM STORE", welcomeSub: "⭐ Premium footwear for champions | Best quality & comfort ⭐", welcomeDesc: "🔥 Discover the latest collection 🔥", tabProducts: "➕ Manage Products", tabOrders: "📦 Orders", tabAdmins: "👥 Admins", addProductTitle: "Add New Shoe", labelName: "Model Name", labelPrice: "Price (DZD)", labelSizes: "Sizes (ex: 39,40,41)", labelImage: "Product Image", labelStock: "Stock", addProductBtn: "+ Add Product", existingTitle: "Existing Products", ordersTitle: "Customer Orders", addAdminTitle: "Add New Admin", labelAdminPass: "Admin Password", currentAdminsTitle: "Current Admins", collectionTitle: "👟 Our Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Phone", contactLocation: "📍 Location", contactHours: "⏰ Hours", footerText: "© 2025 HM STORE — Premium Footwear | Secure Shopping", orderTitle: "🛒 Complete Order", buyNow: "🛒 Buy Now", inStock: "✅ In Stock", outStock: "❌ Out of Stock", noProducts: "✨ No products yet. Admin will add them soon ✨", noOrders: "No orders yet.", noAdmins: "No admins yet.", fillFields: "Please fill all fields", orderPlaced: "✅ Order placed! We'll contact you soon.", enterName: "Enter product name", validPrice: "Valid price needed", productAdded: "Product added!", deleteConfirm: "Delete this shoe?", removeAdminConfirm: "Remove admin", alreadyExists: "Already exists", invalidPassword: "Invalid password", welcomeAdmin: "Welcome Admin!" },
+fr: { home: "🏠 Accueil", contact: "📞 Contact", welcomeTitle: "Bienvenue chez HM STORE", welcomeSub: "⭐ Chaussures premium pour champions | Meilleure qualité et confort ⭐", welcomeDesc: "🔥 Découvrez la dernière collection 🔥", tabProducts: "➕ Gérer les Produits", tabOrders: "📦 Commandes", tabAdmins: "👥 Admins", addProductTitle: "Ajouter une Chaussure", labelName: "Nom du Modèle", labelPrice: "Prix (DZD)", labelSizes: "Tailles (ex: 39,40,41)", labelImage: "Image du produit", labelStock: "Stock", addProductBtn: "+ Ajouter", existingTitle: "Produits Existants", ordersTitle: "Commandes Clients", addAdminTitle: "Ajouter un Admin", labelAdminPass: "Mot de passe Admin", currentAdminsTitle: "Admins Actuels", collectionTitle: "👟 Notre Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Téléphone", contactLocation: "📍 Adresse", contactHours: "⏰ Horaires", footerText: "© 2025 HM STORE — Chaussures Premium | Achat Sécurisé", orderTitle: "🛒 Finaliser la Commande", buyNow: "🛒 Acheter", inStock: "✅ En Stock", outStock: "❌ Rupture", noProducts: "✨ Aucun produit pour le moment. ✨", noOrders: "Aucune commande.", noAdmins: "Aucun administrateur.", fillFields: "Veuillez remplir tous les champs", orderPlaced: "✅ Commande passée !", enterName: "Entrez le nom", validPrice: "Prix valide requis", productAdded: "Produit ajouté !", deleteConfirm: "Supprimer ?", removeAdminConfirm: "Supprimer admin", alreadyExists: "Existe déjà", invalidPassword: "Mot de passe invalide", welcomeAdmin: "Bienvenue Admin !" },
+ar: { home: "🏠 الرئيسية", contact: "📞 اتصل بنا", welcomeTitle: "مرحباً بكم في HM STORE", welcomeSub: "⭐ أحذية فاخرة للأبطال | أفضل جودة وراحة ⭐", welcomeDesc: "🔥 اكتشف أحدث المجموعات 🔥", tabProducts: "➕ إدارة المنتجات", tabOrders: "📦 الطلبات", tabAdmins: "👥 المشرفون", addProductTitle: "إضافة حذاء جديد", labelName: "اسم الموديل", labelPrice: "السعر (دج)", labelSizes: "المقاسات (مثال: 39,40,41)", labelImage: "صورة المنتج", labelStock: "المخزون", addProductBtn: "+ إضافة منتج", existingTitle: "المنتجات الموجودة", ordersTitle: "طلبات العملاء", addAdminTitle: "إضافة مشرف جديد", labelAdminPass: "كلمة مرور المشرف", currentAdminsTitle: "المشرفون الحاليون", collectionTitle: "👟 مجموعتنا", contactTitle: "📞 اتصل بـ HM STORE", contactPhone: "📱 الهاتف", contactLocation: "📍 الموقع", contactHours: "⏰ ساعات العمل", footerText: "© 2025 HM STORE — أحذية فاخرة | تسوق آمن", orderTitle: "🛒 إتمام الطلب", buyNow: "🛒 شراء الآن", inStock: "✅ متوفر", outStock: "❌ نفدت الكمية", noProducts: "✨ لا توجد منتجات حالياً ✨", noOrders: "لا توجد طلبات", noAdmins: "لا يوجد مشرفون", fillFields: "الرجاء ملء جميع الحقول", orderPlaced: "✅ تم تقديم الطلب!", enterName: "الرجاء إدخال اسم المنتج", validPrice: "الرجاء إدخال سعر صحيح", productAdded: "تم إضافة المنتج!", deleteConfirm: "هل تريد حذف هذا الحذاء؟", removeAdminConfirm: "حذف المشرف", alreadyExists: "كلمة المرور موجودة مسبقاً", invalidPassword: "كلمة مرور خاطئة", welcomeAdmin: "مرحباً بك في لوحة التحكم!" }
 };
 
 let currentLang = 'en';
@@ -638,9 +697,35 @@ function openBuyModal(p){ selectedProductForBuy=p; document.getElementById('moda
 function closeBuyModal(){ document.getElementById('buyModal').style.display='none'; selectedProductForBuy=null; }
 function confirmOrder(){ if(!selectedProductForBuy) return; let n=document.getElementById('buyerFullName').value.trim(),p=document.getElementById('buyerPhone').value.trim(),a=document.getElementById('buyerAddress').value.trim(),s=document.getElementById('sizeSelect').value; if(!n||!p||!a||!s){ alert(translations[currentLang].fillFields); return; } orders.unshift({productName:selectedProductForBuy.name,size:s,price:selectedProductForBuy.price,customerName:n,phone:p,address:a,date:new Date().toLocaleString()}); saveOrders(); alert(translations[currentLang].orderPlaced); closeBuyModal(); if(currentAdmin) renderOrdersList(); }
 
-function addProductFromAdmin(){ if(!currentAdmin) return; let n=document.getElementById('prodName').value.trim(),pr=parseFloat(document.getElementById('prodPrice').value),sr=document.getElementById('prodSizes').value.trim(),img=document.getElementById('prodImage').value.trim(),st=document.getElementById('prodStock').value; if(!n){ alert(translations[currentLang].enterName); return; } if(isNaN(pr)||pr<=0){ alert(translations[currentLang].validPrice); return; } let sa=sr?sr.split(',').map(s=>s.trim()).filter(s=>s):[]; products.push({id:Date.now(),name:n,price:pr,sizesArray:sa,imageUrl:img,stockStatus:st}); saveProducts(); renderCustomerProducts(); renderAdminProducts(); document.getElementById('prodName').value=''; document.getElementById('prodPrice').value=''; document.getElementById('prodSizes').value=''; document.getElementById('prodImage').value=''; alert(translations[currentLang].productAdded); }
+function addProductFromAdmin(){
+if(!currentAdmin) return;
+let n=document.getElementById('prodName').value.trim();
+let pr=parseFloat(document.getElementById('prodPrice').value);
+let sr=document.getElementById('prodSizes').value.trim();
+let img = document.getElementById('prodImage').value.trim();
+let st=document.getElementById('prodStock').value;
+if(!n){ alert(translations[currentLang].enterName); return; }
+if(isNaN(pr)||pr<=0){ alert(translations[currentLang].validPrice); return; }
+let sa=sr?sr.split(',').map(s=>s.trim()).filter(s=>s):[];
+products.push({id:Date.now(),name:n,price:pr,sizesArray:sa,imageUrl:img,stockStatus:st});
+saveProducts();
+renderCustomerProducts();
+renderAdminProducts();
+document.getElementById('prodName').value='';
+document.getElementById('prodPrice').value='';
+document.getElementById('prodSizes').value='';
+document.getElementById('prodImage').value='';
+document.getElementById('prodImageFile').value='';
+document.getElementById('imagePreview').innerHTML = '';
+uploadedImageData = null;
+alert(translations[currentLang].productAdded);
+}
 
-function renderAdminProducts(){ let c=document.getElementById('adminProductsList'); if(!c) return; if(products.length===0){c.innerHTML='<p>No products.</p>';return;} c.innerHTML=products.map(p=>`<div style="border:1px solid #ddd; border-radius:20px; padding:12px; margin-bottom:10px;"><strong>${escapeHtml(p.name)}</strong> - ${p.price.toLocaleString()} DZD | Sizes: ${p.sizesArray.join(', ')} | ${p.stockStatus==='in'?'In Stock':'Out'}<div style="margin-top:8px;"><button class="toggle-stock" data-id="${p.id}">🔄 Toggle Stock</button><button class="delete-prod" data-id="${p.id}" style="background:#dc3545; color:white;">🗑 Delete</button></div></div>`).join('');
+function renderAdminProducts(){
+let c=document.getElementById('adminProductsList');
+if(!c) return;
+if(products.length===0){c.innerHTML='<p>No products.</p>';return;}
+c.innerHTML=products.map(p=>`<div style="border:1px solid #ddd; border-radius:20px; padding:12px; margin-bottom:10px;"><strong>${escapeHtml(p.name)}</strong> - ${p.price.toLocaleString()} DZD | Sizes: ${p.sizesArray.join(', ')} | ${p.stockStatus==='in'?'In Stock':'Out'}<div style="margin-top:8px;"><button class="toggle-stock" data-id="${p.id}">🔄 Toggle Stock</button><button class="delete-prod" data-id="${p.id}" style="background:#dc3545; color:white;">🗑 Delete</button></div></div>`).join('');
 document.querySelectorAll('.toggle-stock').forEach(b=>b.addEventListener('click',e=>{let id=parseInt(b.dataset.id);toggleStock(id);}));
 document.querySelectorAll('.delete-prod').forEach(b=>b.addEventListener('click',e=>{let id=parseInt(b.dataset.id);deleteProductById(id);}));
 }
