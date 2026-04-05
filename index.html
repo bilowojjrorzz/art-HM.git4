@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
 <title>HM STORE | Premium Footwear</title>
+<meta name="description" content="HM STORE - Premium footwear store in Algeria. Buy original shoes online with delivery. Best prices in DZD.">
+<meta name="keywords" content="HM STORE, shoes, footwear, buy shoes online, Algeria">
+<meta name="author" content="HM STORE">
 <style>
 * {
 margin: 0;
@@ -225,7 +228,6 @@ border-color: #ff9800;
 box-shadow: 0 0 0 3px rgba(255,152,0,0.1);
 }
 
-/* حقل رفع الصورة */
 .image-upload-area {
 margin-top: 10px;
 }
@@ -275,7 +277,6 @@ transform: translateY(-2px);
 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* قسم المنتجات - مخفي في البداية */
 .products-section {
 padding: 2rem 1.5rem;
 background: #f8f9fc;
@@ -445,7 +446,7 @@ color: white !important;
 <div class="hero-section">
 <div class="navbar">
 <div class="logo">
-<img src="hm-logo-design-business-company-600w-1928476337.webp" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;">
+<img src="hm-logo-design-business-company-600w-1928476337.webp" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;" alt="HM STORE Logo">
 <h1>HM <span>STORE</span></h1>
 </div>
 <div class="menu-icon" onclick="toggleMobileMenu(event)">☰</div>
@@ -513,7 +514,6 @@ color: white !important;
 </div>
 </div>
 
-<!-- صفحة المنتجات - تظهر فقط عند الضغط على زر Our Products -->
 <div id="productsPage" class="products-section">
 <div class="section-title" id="collectionTitle">👟 Our Collection</div>
 <div id="customerProductGrid" class="product-grid"></div>
@@ -549,7 +549,6 @@ color: white !important;
 </div>
 
 <script>
-// دالة رفع الصورة وتحويلها إلى base64
 let uploadedImageData = null;
 
 document.getElementById('prodImageFile').addEventListener('change', function(e) {
@@ -566,14 +565,12 @@ reader.readAsDataURL(file);
 }
 });
 
-// دالة لفتح وإغلاق القائمة (الثلاث نقاط)
 function toggleMobileMenu(event) {
 event.stopPropagation();
 const navLinks = document.getElementById('navLinks');
 navLinks.classList.toggle('show');
 }
 
-// إغلاق القائمة عند الضغط في أي مكان خارجها
 document.addEventListener('click', function(event) {
 const navLinks = document.getElementById('navLinks');
 const menuIcon = document.querySelector('.menu-icon');
@@ -586,7 +583,6 @@ document.getElementById('navLinks').addEventListener('click', function(event) {
 event.stopPropagation();
 });
 
-// دوال التنقل
 function showHomePage() {
 document.getElementById('productsPage').classList.remove('show');
 document.getElementById('contactPage').style.display = 'none';
@@ -606,7 +602,6 @@ document.getElementById('contactPage').style.display = 'block';
 document.getElementById('navLinks').classList.remove('show');
 }
 
-// ========== إعدادات اللغة ==========
 const translations = {
 en: { home: "🏠 Home", contact: "📞 Contact", welcomeTitle: "Welcome to HM STORE", welcomeSub: "⭐ Premium footwear for champions | Best quality & comfort ⭐", welcomeDesc: "🔥 Discover the latest collection 🔥", tabProducts: "➕ Manage Products", tabOrders: "📦 Orders", tabAdmins: "👥 Admins", addProductTitle: "Add New Shoe", labelName: "Model Name", labelPrice: "Price (DZD)", labelSizes: "Sizes (ex: 39,40,41)", labelImage: "Product Image", labelStock: "Stock", addProductBtn: "+ Add Product", existingTitle: "Existing Products", ordersTitle: "Customer Orders", addAdminTitle: "Add New Admin", labelAdminPass: "Admin Password", currentAdminsTitle: "Current Admins", collectionTitle: "👟 Our Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Phone", contactLocation: "📍 Location", contactHours: "⏰ Hours", footerText: "© 2025 HM STORE — Premium Footwear | Secure Shopping", orderTitle: "🛒 Complete Order", buyNow: "🛒 Buy Now", inStock: "✅ In Stock", outStock: "❌ Out of Stock", noProducts: "✨ No products yet. Admin will add them soon ✨", noOrders: "No orders yet.", noAdmins: "No admins yet.", fillFields: "Please fill all fields", orderPlaced: "✅ Order placed! We'll contact you soon.", enterName: "Enter product name", validPrice: "Valid price needed", productAdded: "Product added!", deleteConfirm: "Delete this shoe?", removeAdminConfirm: "Remove admin", alreadyExists: "Already exists", invalidPassword: "Invalid password", welcomeAdmin: "Welcome Admin!" },
 fr: { home: "🏠 Accueil", contact: "📞 Contact", welcomeTitle: "Bienvenue chez HM STORE", welcomeSub: "⭐ Chaussures premium pour champions | Meilleure qualité et confort ⭐", welcomeDesc: "🔥 Découvrez la dernière collection 🔥", tabProducts: "➕ Gérer les Produits", tabOrders: "📦 Commandes", tabAdmins: "👥 Admins", addProductTitle: "Ajouter une Chaussure", labelName: "Nom du Modèle", labelPrice: "Prix (DZD)", labelSizes: "Tailles (ex: 39,40,41)", labelImage: "Image du produit", labelStock: "Stock", addProductBtn: "+ Ajouter", existingTitle: "Produits Existants", ordersTitle: "Commandes Clients", addAdminTitle: "Ajouter un Admin", labelAdminPass: "Mot de passe Admin", currentAdminsTitle: "Admins Actuels", collectionTitle: "👟 Notre Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Téléphone", contactLocation: "📍 Adresse", contactHours: "⏰ Horaires", footerText: "© 2025 HM STORE — Chaussures Premium | Achat Sécurisé", orderTitle: "🛒 Finaliser la Commande", buyNow: "🛒 Acheter", inStock: "✅ En Stock", outStock: "❌ Rupture", noProducts: "✨ Aucun produit pour le moment. ✨", noOrders: "Aucune commande.", noAdmins: "Aucun administrateur.", fillFields: "Veuillez remplir tous les champs", orderPlaced: "✅ Commande passée !", enterName: "Entrez le nom", validPrice: "Prix valide requis", productAdded: "Produit ajouté !", deleteConfirm: "Supprimer ?", removeAdminConfirm: "Supprimer admin", alreadyExists: "Existe déjà", invalidPassword: "Mot de passe invalide", welcomeAdmin: "Bienvenue Admin !" },
@@ -650,7 +645,6 @@ closeLanguageMenu();
 renderCustomerProducts();
 }
 
-// التحكم في قائمة اللغة (بالضغط)
 function toggleLanguageMenu(e) {
 e.stopPropagation();
 document.getElementById('langDropdownContent').classList.toggle('show');
@@ -663,7 +657,6 @@ document.addEventListener('click', function(e) {
 if(!document.getElementById('languageDropdown').contains(e.target)) closeLanguageMenu();
 });
 
-// ========== باقي كود المنتجات والأدمن ==========
 const SECRET_KEY = "HMADMIN2025";
 let products = [], orders = [], admins = ["KAKA09"], currentAdmin = null, selectedProductForBuy = null;
 function saveProducts() { localStorage.setItem('hm_products', JSON.stringify(products)); }
