@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-<title>HM STORE | Premium Footwear</title>
-<meta name="description" content="HM STORE - Premium footwear store in Algeria. Buy original shoes online with delivery. Best prices in DZD.">
-<meta name="keywords" content="HM STORE, shoes, footwear, buy shoes online, Algeria">
-<meta name="author" content="HM STORE">
+<title>YC Store | Boutique Premium</title>
+<meta name="description" content="YC Store - Boutique premium en Algérie. Achetez des produits de qualité en ligne. Meilleurs prix en DZD.">
+<meta name="keywords" content="YC STORE, produits, shopping en ligne, Algérie">
+<meta name="author" content="YC STORE">
 <style>
 * {
 margin: 0;
@@ -20,15 +20,49 @@ background: #f4f6f9;
 overflow-x: hidden;
 }
 
+/* خلفية عادية مع إضاءة ناعمة تتجه نحو الأسفل */
 .hero-section {
-background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
-url('https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1600');
-background-size: cover;
-background-position: center 30%;
-background-attachment: fixed;
+background: #1a2a3a;
+position: relative;
 color: white;
 padding: 2rem 1.5rem 4rem 1.5rem;
 border-radius: 0 0 2rem 2rem;
+overflow: hidden;
+}
+
+/* تأثير الإضاءة الناعمة المتجهة نحو زر Nos Produits */
+.hero-section::before {
+content: '';
+position: absolute;
+top: 60%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 350px;
+height: 350px;
+background: radial-gradient(circle, rgba(255,152,0,0.3) 0%, rgba(255,152,0,0) 70%);
+border-radius: 50%;
+pointer-events: none;
+z-index: 0;
+}
+
+/* تأثير إضاءة إضافية */
+.hero-section::after {
+content: '';
+position: absolute;
+top: 70%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 500px;
+height: 500px;
+background: radial-gradient(circle, rgba(255,200,100,0.15) 0%, rgba(255,152,0,0) 80%);
+border-radius: 50%;
+pointer-events: none;
+z-index: 0;
+}
+
+.navbar, .welcome-box, .hero-btn {
+position: relative;
+z-index: 2;
 }
 
 .navbar {
@@ -160,11 +194,11 @@ font-size: 1.1rem;
 cursor: pointer;
 transition: 0.3s;
 margin-top: 20px;
-box-shadow: 0 4px 15px rgba(255,152,0,0.3);
+box-shadow: 0 0 20px rgba(255,152,0,0.6);
 }
 .hero-btn:hover {
 transform: translateY(-3px);
-box-shadow: 0 8px 25px rgba(255,152,0,0.4);
+box-shadow: 0 8px 25px rgba(255,152,0,0.8);
 }
 
 .admin-dashboard {
@@ -446,15 +480,18 @@ color: white !important;
 <div class="hero-section">
 <div class="navbar">
 <div class="logo">
-<img src="hm-logo-design-business-company-600w-1928476337.webp" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover;" alt="HM STORE Logo">
-<h1>HM <span>STORE</span></h1>
+<!-- صورة لوغو عادية باسم YC -->
+<svg width="55" height="55" viewBox="0 0 100 100" style="border-radius: 50%; background: #ff9800;">
+<text x="50" y="68" font-size="45" text-anchor="middle" fill="white" font-weight="bold">YC</text>
+</svg>
+<h1>YC <span>STORE</span></h1>
 </div>
 <div class="menu-icon" onclick="toggleMobileMenu(event)">☰</div>
 <div class="nav-links" id="navLinks">
-<button id="homeBtn">🏠 Home</button>
+<button id="homeBtn">🏠 Accueil</button>
 <button id="contactNavBtn">📞 Contact</button>
 <div class="language-dropdown" id="languageDropdown">
-<button class="lang-main-btn" id="langMainBtn">🌐 Language</button>
+<button class="lang-main-btn" id="langMainBtn">🌐 Langue</button>
 <div class="lang-dropdown-content" id="langDropdownContent">
 <button onclick="setLanguage('en')">🇬🇧 English</button>
 <button onclick="setLanguage('fr')">🇫🇷 Français</button>
@@ -464,87 +501,86 @@ color: white !important;
 </div>
 </div>
 <div class="welcome-box">
-<h2 id="welcomeTitle">Welcome to HM STORE</h2>
-<p id="welcomeSub">⭐ Premium footwear for champions | Best quality & comfort ⭐</p>
-<p id="welcomeDesc" style="margin-top: 12px;">🔥 Discover the latest collection 🔥</p>
-<button class="hero-btn" onclick="showProductsPage()">👟 Our Products</button>
+<h2 id="welcomeTitle">Bienvenue chez YC STORE</h2>
+<p id="welcomeSub">Les meilleurs produits que vous recherchez sont ici</p>
+<p id="welcomeDesc" style="margin-top: 12px;">🔥 Découvrez la dernière collection 🔥</p>
+<button class="hero-btn" onclick="showProductsPage()">🛒 Nos Produits</button>
 </div>
 </div>
 
 <div id="adminDashboard" class="admin-dashboard">
 <div class="admin-tabs">
-<button class="tab-btn active" data-tab="productsTab" id="tabProducts">➕ Manage Products</button>
-<button class="tab-btn" data-tab="ordersTab" id="tabOrders">📦 Orders</button>
+<button class="tab-btn active" data-tab="productsTab" id="tabProducts">➕ Gérer les Produits</button>
+<button class="tab-btn" data-tab="ordersTab" id="tabOrders">📦 Commandes</button>
 <button class="tab-btn" data-tab="adminsTab" id="tabAdmins">👥 Admins</button>
 </div>
 <div id="productsTab" class="tab-pane active">
-<h3 id="addProductTitle">Add New Shoe</h3>
+<h3 id="addProductTitle">Ajouter un Nouveau Produit</h3>
 <div class="form-row">
-<div class="form-group"><label id="labelName">Model Name</label><input type="text" id="prodName" placeholder="e.g. HM Racer Pro"></div>
-<div class="form-group"><label id="labelPrice">Price (DZD)</label><input type="number" id="prodPrice" placeholder="8500"></div>
-<div class="form-group"><label id="labelSizes">Sizes (ex: 39,40,41)</label><input type="text" id="prodSizes" placeholder="39,40,41,42"></div>
+<div class="form-group"><label id="labelName">Nom du Modèle</label><input type="text" id="prodName" placeholder="e.g. YC Racer Pro"></div>
+<div class="form-group"><label id="labelPrice">Prix (DZD)</label><input type="number" id="prodPrice" placeholder="8500"></div>
+<div class="form-group"><label id="labelSizes">Tailles (ex: 39,40,41)</label><input type="text" id="prodSizes" placeholder="39,40,41,42"></div>
 <div class="form-group">
-<label id="labelImage">Product Image</label>
+<label id="labelImage">Image du Produit</label>
 <div class="image-upload-area">
 <input type="file" id="prodImageFile" accept="image/*" style="display:none;">
-<button type="button" class="upload-btn" onclick="document.getElementById('prodImageFile').click()">📸 Choose Image from Album</button>
+<button type="button" class="upload-btn" onclick="document.getElementById('prodImageFile').click()">📸 Choisir une image</button>
 <div class="image-preview" id="imagePreview"></div>
 <input type="hidden" id="prodImage" placeholder="https://...">
 </div>
 </div>
-<div class="form-group"><label id="labelStock">Stock</label><select id="prodStock"><option value="in">✅ In Stock</option><option value="out">❌ Out of Stock</option></select></div>
+<div class="form-group"><label id="labelStock">Stock</label><select id="prodStock"><option value="in">✅ En Stock</option><option value="out">❌ Rupture</option></select></div>
 </div>
-<button id="addProductBtn">+ Add Product</button>
+<button id="addProductBtn">+ Ajouter</button>
 <hr style="margin: 20px 0;">
-<h3 id="existingTitle">Existing Products</h3>
+<h3 id="existingTitle">Produits Existants</h3>
 <div id="adminProductsList" style="max-height: 300px; overflow-y: auto;"></div>
 </div>
 <div id="ordersTab" class="tab-pane">
-<h3 id="ordersTitle">Customer Orders</h3>
+<h3 id="ordersTitle">Commandes Clients</h3>
 <div id="ordersList"></div>
 </div>
 <div id="adminsTab" class="tab-pane">
-<h3 id="addAdminTitle">Add New Admin</h3>
+<h3 id="addAdminTitle">Ajouter un Admin</h3>
 <div class="form-row">
-<div class="form-group"><label id="labelAdminPass">Admin Password</label><input type="text" id="newAdminPass" placeholder="new admin secret"></div>
-<div class="form-group"><label> </label><button id="addAdminBtn">+ Add Admin</button></div>
+<div class="form-group"><label id="labelAdminPass">Mot de passe Admin</label><input type="text" id="newAdminPass" placeholder="new admin secret"></div>
+<div class="form-group"><label> </label><button id="addAdminBtn">+ Ajouter</button></div>
 </div>
-<h4 id="currentAdminsTitle">Current Admins</h4>
+<h4 id="currentAdminsTitle">Admins Actuels</h4>
 <div id="adminsList"></div>
 </div>
 </div>
 
 <div id="productsPage" class="products-section">
-<div class="section-title" id="collectionTitle">👟 Our Collection</div>
+<div class="section-title" id="collectionTitle">Nos Produits</div>
 <div id="customerProductGrid" class="product-grid"></div>
 </div>
 
 <div id="contactPage" style="display: none;">
 <div class="contact-section">
-<h2 id="contactTitle">📞 Contact HM STORE</h2>
+<h2 id="contactTitle">📞 Contacter YC STORE</h2>
 <div class="contact-grid">
-<div class="contact-card"><h3>📧 Email</h3><p>Daoudhamdani@gmail.com</p></div>
-<div class="contact-card"><h3 id="contactPhone">📱 Phone</h3><p>+213 5XX XX XX XX</p></div>
-<div class="contact-card"><h3 id="contactLocation">📍 Location</h3><p>Algiers, Algeria</p></div>
-<div class="contact-card"><h3 id="contactHours">⏰ Hours</h3><p>24h</p></div>
+<div class="contact-card"><h3>📧 Email</h3><p>yacineboubnia771@gmail.com</p></div>
+<div class="contact-card"><h3 id="contactLocation">📍 Localisation</h3><p>Algiers, Algeria</p></div>
+<div class="contact-card"><h3 id="contactHours">⏰ Horaires</h3><p>24h/24</p></div>
 </div>
 </div>
 </div>
 
 <footer>
-<p id="footerText">© 2025 HM STORE — Premium Footwear | Secure Shopping</p>
+<p id="footerText">© 2025 YC STORE — Produits Premium | Achetez en toute sécurité</p>
 </footer>
 
 <div id="buyModal" class="modal">
 <div class="modal-content">
-<h3 id="orderTitle">🛒 Complete Order</h3>
+<h3 id="orderTitle">🛒 Finaliser la Commande</h3>
 <div id="modalProductInfo"></div>
-<input type="text" id="buyerFullName" placeholder="Full name">
-<input type="tel" id="buyerPhone" placeholder="Phone number">
-<input type="text" id="buyerAddress" placeholder="Shipping address">
-<select id="sizeSelect"><option value="">Select size</option></select>
-<button id="confirmOrderBtn">✅ Confirm Order</button>
-<button id="closeModalBtn" style="background:#aaa; margin-top:8px;">Cancel</button>
+<input type="text" id="buyerFullName" placeholder="Nom complet">
+<input type="tel" id="buyerPhone" placeholder="Numéro de téléphone">
+<input type="text" id="buyerAddress" placeholder="Adresse de livraison">
+<select id="sizeSelect"><option value="">Sélectionnez la taille</option></select>
+<button id="confirmOrderBtn">✅ Confirmer</button>
+<button id="closeModalBtn" style="background:#aaa; margin-top:8px;">Annuler</button>
 </div>
 </div>
 
@@ -603,12 +639,12 @@ document.getElementById('navLinks').classList.remove('show');
 }
 
 const translations = {
-en: { home: "🏠 Home", contact: "📞 Contact", welcomeTitle: "Welcome to HM STORE", welcomeSub: "⭐ Premium footwear for champions | Best quality & comfort ⭐", welcomeDesc: "🔥 Discover the latest collection 🔥", tabProducts: "➕ Manage Products", tabOrders: "📦 Orders", tabAdmins: "👥 Admins", addProductTitle: "Add New Shoe", labelName: "Model Name", labelPrice: "Price (DZD)", labelSizes: "Sizes (ex: 39,40,41)", labelImage: "Product Image", labelStock: "Stock", addProductBtn: "+ Add Product", existingTitle: "Existing Products", ordersTitle: "Customer Orders", addAdminTitle: "Add New Admin", labelAdminPass: "Admin Password", currentAdminsTitle: "Current Admins", collectionTitle: "👟 Our Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Phone", contactLocation: "📍 Location", contactHours: "⏰ Hours", footerText: "© 2025 HM STORE — Premium Footwear | Secure Shopping", orderTitle: "🛒 Complete Order", buyNow: "🛒 Buy Now", inStock: "✅ In Stock", outStock: "❌ Out of Stock", noProducts: "✨ No products yet. Admin will add them soon ✨", noOrders: "No orders yet.", noAdmins: "No admins yet.", fillFields: "Please fill all fields", orderPlaced: "✅ Order placed! We'll contact you soon.", enterName: "Enter product name", validPrice: "Valid price needed", productAdded: "Product added!", deleteConfirm: "Delete this shoe?", removeAdminConfirm: "Remove admin", alreadyExists: "Already exists", invalidPassword: "Invalid password", welcomeAdmin: "Welcome Admin!" },
-fr: { home: "🏠 Accueil", contact: "📞 Contact", welcomeTitle: "Bienvenue chez HM STORE", welcomeSub: "⭐ Chaussures premium pour champions | Meilleure qualité et confort ⭐", welcomeDesc: "🔥 Découvrez la dernière collection 🔥", tabProducts: "➕ Gérer les Produits", tabOrders: "📦 Commandes", tabAdmins: "👥 Admins", addProductTitle: "Ajouter une Chaussure", labelName: "Nom du Modèle", labelPrice: "Prix (DZD)", labelSizes: "Tailles (ex: 39,40,41)", labelImage: "Image du produit", labelStock: "Stock", addProductBtn: "+ Ajouter", existingTitle: "Produits Existants", ordersTitle: "Commandes Clients", addAdminTitle: "Ajouter un Admin", labelAdminPass: "Mot de passe Admin", currentAdminsTitle: "Admins Actuels", collectionTitle: "👟 Notre Collection", contactTitle: "📞 Contact HM STORE", contactPhone: "📱 Téléphone", contactLocation: "📍 Adresse", contactHours: "⏰ Horaires", footerText: "© 2025 HM STORE — Chaussures Premium | Achat Sécurisé", orderTitle: "🛒 Finaliser la Commande", buyNow: "🛒 Acheter", inStock: "✅ En Stock", outStock: "❌ Rupture", noProducts: "✨ Aucun produit pour le moment. ✨", noOrders: "Aucune commande.", noAdmins: "Aucun administrateur.", fillFields: "Veuillez remplir tous les champs", orderPlaced: "✅ Commande passée !", enterName: "Entrez le nom", validPrice: "Prix valide requis", productAdded: "Produit ajouté !", deleteConfirm: "Supprimer ?", removeAdminConfirm: "Supprimer admin", alreadyExists: "Existe déjà", invalidPassword: "Mot de passe invalide", welcomeAdmin: "Bienvenue Admin !" },
-ar: { home: "🏠 الرئيسية", contact: "📞 اتصل بنا", welcomeTitle: "مرحباً بكم في HM STORE", welcomeSub: "⭐ أحذية فاخرة للأبطال | أفضل جودة وراحة ⭐", welcomeDesc: "🔥 اكتشف أحدث المجموعات 🔥", tabProducts: "➕ إدارة المنتجات", tabOrders: "📦 الطلبات", tabAdmins: "👥 المشرفون", addProductTitle: "إضافة حذاء جديد", labelName: "اسم الموديل", labelPrice: "السعر (دج)", labelSizes: "المقاسات (مثال: 39,40,41)", labelImage: "صورة المنتج", labelStock: "المخزون", addProductBtn: "+ إضافة منتج", existingTitle: "المنتجات الموجودة", ordersTitle: "طلبات العملاء", addAdminTitle: "إضافة مشرف جديد", labelAdminPass: "كلمة مرور المشرف", currentAdminsTitle: "المشرفون الحاليون", collectionTitle: "👟 مجموعتنا", contactTitle: "📞 اتصل بـ HM STORE", contactPhone: "📱 الهاتف", contactLocation: "📍 الموقع", contactHours: "⏰ ساعات العمل", footerText: "© 2025 HM STORE — أحذية فاخرة | تسوق آمن", orderTitle: "🛒 إتمام الطلب", buyNow: "🛒 شراء الآن", inStock: "✅ متوفر", outStock: "❌ نفدت الكمية", noProducts: "✨ لا توجد منتجات حالياً ✨", noOrders: "لا توجد طلبات", noAdmins: "لا يوجد مشرفون", fillFields: "الرجاء ملء جميع الحقول", orderPlaced: "✅ تم تقديم الطلب!", enterName: "الرجاء إدخال اسم المنتج", validPrice: "الرجاء إدخال سعر صحيح", productAdded: "تم إضافة المنتج!", deleteConfirm: "هل تريد حذف هذا الحذاء؟", removeAdminConfirm: "حذف المشرف", alreadyExists: "كلمة المرور موجودة مسبقاً", invalidPassword: "كلمة مرور خاطئة", welcomeAdmin: "مرحباً بك في لوحة التحكم!" }
+en: { home: "🏠 Home", contact: "📞 Contact", welcomeTitle: "Welcome to YC STORE", welcomeSub: "The best products you are looking for are here", welcomeDesc: "🔥 Discover the latest collection 🔥", tabProducts: "➕ Manage Products", tabOrders: "📦 Orders", tabAdmins: "👥 Admins", addProductTitle: "Add New Product", labelName: "Model Name", labelPrice: "Price (DZD)", labelSizes: "Sizes (ex: 39,40,41)", labelImage: "Product Image", labelStock: "Stock", addProductBtn: "+ Add Product", existingTitle: "Existing Products", ordersTitle: "Customer Orders", addAdminTitle: "Add New Admin", labelAdminPass: "Admin Password", currentAdminsTitle: "Current Admins", collectionTitle: "Nos Produits", contactTitle: "📞 Contact YC STORE", contactPhone: "📱 Phone", contactLocation: "📍 Location", contactHours: "⏰ Hours", footerText: "© 2025 YC STORE — Premium Products | Secure Shopping", orderTitle: "🛒 Complete Order", buyNow: "🛒 Buy Now", inStock: "✅ In Stock", outStock: "❌ Out of Stock", noProducts: "✨ No products yet. Admin will add them soon ✨", noOrders: "No orders yet.", noAdmins: "No admins yet.", fillFields: "Please fill all fields", orderPlaced: "✅ Order placed! We'll contact you soon.", enterName: "Enter product name", validPrice: "Valid price needed", productAdded: "Product added!", deleteConfirm: "Delete this product?", removeAdminConfirm: "Remove admin", alreadyExists: "Already exists", invalidPassword: "Invalid password", welcomeAdmin: "Welcome Admin!" },
+fr: { home: "🏠 Accueil", contact: "📞 Contact", welcomeTitle: "Bienvenue chez YC STORE", welcomeSub: "Les meilleurs produits que vous recherchez sont ici", welcomeDesc: "🔥 Découvrez la dernière collection 🔥", tabProducts: "➕ Gérer les Produits", tabOrders: "📦 Commandes", tabAdmins: "👥 Admins", addProductTitle: "Ajouter un Produit", labelName: "Nom du Modèle", labelPrice: "Prix (DZD)", labelSizes: "Tailles (ex: 39,40,41)", labelImage: "Image du produit", labelStock: "Stock", addProductBtn: "+ Ajouter", existingTitle: "Produits Existants", ordersTitle: "Commandes Clients", addAdminTitle: "Ajouter un Admin", labelAdminPass: "Mot de passe Admin", currentAdminsTitle: "Admins Actuels", collectionTitle: "Nos Produits", contactTitle: "📞 Contacter YC STORE", contactPhone: "📱 Téléphone", contactLocation: "📍 Localisation", contactHours: "⏰ Horaires", footerText: "© 2025 YC STORE — Produits Premium | Achat Sécurisé", orderTitle: "🛒 Finaliser la Commande", buyNow: "🛒 Acheter", inStock: "✅ En Stock", outStock: "❌ Rupture", noProducts: "✨ Aucun produit pour le moment. ✨", noOrders: "Aucune commande.", noAdmins: "Aucun administrateur.", fillFields: "Veuillez remplir tous les champs", orderPlaced: "✅ Commande passée !", enterName: "Entrez le nom du produit", validPrice: "Prix valide requis", productAdded: "Produit ajouté !", deleteConfirm: "Supprimer ce produit ?", removeAdminConfirm: "Supprimer l'admin", alreadyExists: "Existe déjà", invalidPassword: "Mot de passe invalide", welcomeAdmin: "Bienvenue Admin !" },
+ar: { home: "🏠 الرئيسية", contact: "📞 اتصل بنا", welcomeTitle: "مرحباً بكم في YC STORE", welcomeSub: "أفضل المنتجات التي تبحث عنها موجودة هنا", welcomeDesc: "🔥 اكتشف أحدث المجموعات 🔥", tabProducts: "➕ إدارة المنتجات", tabOrders: "📦 الطلبات", tabAdmins: "👥 المشرفون", addProductTitle: "إضافة منتج جديد", labelName: "اسم الموديل", labelPrice: "السعر (دج)", labelSizes: "المقاسات (مثال: 39,40,41)", labelImage: "صورة المنتج", labelStock: "المخزون", addProductBtn: "+ إضافة منتج", existingTitle: "المنتجات الموجودة", ordersTitle: "طلبات العملاء", addAdminTitle: "إضافة مشرف جديد", labelAdminPass: "كلمة مرور المشرف", currentAdminsTitle: "المشرفون الحاليون", collectionTitle: "Nos Produits", contactTitle: "📞 اتصل بـ YC STORE", contactPhone: "📱 الهاتف", contactLocation: "📍 الموقع", contactHours: "⏰ ساعات العمل", footerText: "© 2025 YC STORE — منتجات فاخرة | تسوق آمن", orderTitle: "🛒 إتمام الطلب", buyNow: "🛒 شراء الآن", inStock: "✅ متوفر", outStock: "❌ نفدت الكمية", noProducts: "✨ لا توجد منتجات حالياً ✨", noOrders: "لا توجد طلبات", noAdmins: "لا يوجد مشرفون", fillFields: "الرجاء ملء جميع الحقول", orderPlaced: "✅ تم تقديم الطلب!", enterName: "الرجاء إدخال اسم المنتج", validPrice: "الرجاء إدخال سعر صحيح", productAdded: "تم إضافة المنتج!", deleteConfirm: "هل تريد حذف هذا المنتج؟", removeAdminConfirm: "حذف المشرف", alreadyExists: "كلمة المرور موجودة مسبقاً", invalidPassword: "كلمة مرور خاطئة", welcomeAdmin: "مرحباً بك في لوحة التحكم!" }
 };
 
-let currentLang = 'en';
+let currentLang = 'fr';
 
 function setLanguage(lang) {
 currentLang = lang;
@@ -657,11 +693,11 @@ document.addEventListener('click', function(e) {
 if(!document.getElementById('languageDropdown').contains(e.target)) closeLanguageMenu();
 });
 
-const SECRET_KEY = "HMADMIN2025";
-let products = [], orders = [], admins = ["KAKA09"], currentAdmin = null, selectedProductForBuy = null;
-function saveProducts() { localStorage.setItem('hm_products', JSON.stringify(products)); }
-function saveOrders() { localStorage.setItem('hm_orders', JSON.stringify(orders)); }
-function saveAdmins() { localStorage.setItem('hm_admins', JSON.stringify(admins)); }
+const SECRET_KEY = "YCADMIN2025";
+let products = [], orders = [], admins = ["YC2025"], currentAdmin = null, selectedProductForBuy = null;
+function saveProducts() { localStorage.setItem('yc_products', JSON.stringify(products)); }
+function saveOrders() { localStorage.setItem('yc_orders', JSON.stringify(orders)); }
+function saveAdmins() { localStorage.setItem('yc_admins', JSON.stringify(admins)); }
 
 function checkSecretAndShowAdminButton() {
 if(new URLSearchParams(window.location.search).get('secret') === SECRET_KEY) {
@@ -679,10 +715,10 @@ else if(pwd) alert(translations[currentLang].invalidPassword);
 }
 
 function loadData() {
-let sp = localStorage.getItem('hm_products'); products = sp ? JSON.parse(sp) : [];
-let so = localStorage.getItem('hm_orders'); orders = so ? JSON.parse(so) : [];
-let sa = localStorage.getItem('hm_admins'); admins = sa ? JSON.parse(sa) : ["KAKA09"];
-if(!admins.includes("KAKA09")) admins.push("KAKA09"); saveAdmins();
+let sp = localStorage.getItem('yc_products'); products = sp ? JSON.parse(sp) : [];
+let so = localStorage.getItem('yc_orders'); orders = so ? JSON.parse(so) : [];
+let sa = localStorage.getItem('yc_admins'); admins = sa ? JSON.parse(sa) : ["YC2025"];
+if(!admins.includes("YC2025")) admins.push("YC2025"); saveAdmins();
 renderCustomerProducts();
 if(currentAdmin) { renderAdminProducts(); renderOrdersList(); renderAdminsList(); }
 }
@@ -691,7 +727,7 @@ function renderCustomerProducts() {
 let c = document.getElementById('customerProductGrid');
 if(!c) return;
 if(products.length === 0) { c.innerHTML = `<div class="empty-message">${translations[currentLang].noProducts}</div>`; return; }
-c.innerHTML = products.map(p => `<div class="product-card"><div class="product-img">${p.imageUrl ? `<img src="${p.imageUrl}" onerror="this.src='https://via.placeholder.com/300?text=HM'">` : '<div style="font-size:40px;">👟</div>'}</div><div class="product-info"><div class="product-name">${escapeHtml(p.name)}</div><div class="product-price">${Number(p.price).toLocaleString()} DZD</div><div class="sizes-badge">${p.sizesArray.map(s=>`<span class="size-tag">${s}</span>`).join('')}</div><div class="stock-status ${p.stockStatus==='in'?'in-stock':'out-stock'}">${p.stockStatus==='in'?translations[currentLang].inStock:translations[currentLang].outStock}</div><button class="buy-btn" data-id="${p.id}" ${p.stockStatus!=='in'?'disabled':''}>${translations[currentLang].buyNow}</button></div></div>`).join('');
+c.innerHTML = products.map(p => `<div class="product-card"><div class="product-img">${p.imageUrl ? `<img src="${p.imageUrl}" onerror="this.src='https://via.placeholder.com/300?text=YC'">` : '<div style="font-size:40px;">🛍️</div>'}</div><div class="product-info"><div class="product-name">${escapeHtml(p.name)}</div><div class="product-price">${Number(p.price).toLocaleString()} DZD</div><div class="sizes-badge">${p.sizesArray.map(s=>`<span class="size-tag">${s}</span>`).join('')}</div><div class="stock-status ${p.stockStatus==='in'?'in-stock':'out-stock'}">${p.stockStatus==='in'?translations[currentLang].inStock:translations[currentLang].outStock}</div><button class="buy-btn" data-id="${p.id}" ${p.stockStatus!=='in'?'disabled':''}>${translations[currentLang].buyNow}</button></div></div>`).join('');
 document.querySelectorAll('.buy-btn').forEach(btn=>btn.addEventListener('click',e=>{let id=parseInt(btn.dataset.id),p=products.find(p=>p.id===id);if(p&&p.stockStatus==='in')openBuyModal(p);else alert(translations[currentLang].outStock);}));
 }
 
@@ -755,7 +791,6 @@ document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>
 checkSecretAndShowAdminButton();
 loadData();
 showHomePage();
-setLanguage('en');
+setLanguage('fr');
 </script>
 </body>
-</html>
